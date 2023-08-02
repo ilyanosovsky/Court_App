@@ -35,6 +35,16 @@ const storage = multer.diskStorage({
 }); //how to save files locally 
 const upload = multer({storage});
 
+// MONGOOSE - MongoDB SetUp
+const PORT = process.env.PORT || 3030;
+mongoose
+.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
+}).catch((err) => console.log(`${err} did not connetct`));
+
 
 
 
