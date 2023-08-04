@@ -8,6 +8,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path"; //allows to upload files
 import { fileURLToPath } from 'url'; //allows to upload files
+import authRoutes from './routes/auth.js';
+import { register } from './controllers/auth.js';
 
 // CONFIGURATIONS MIDDLEWARE
 const __filename = fileURLToPath(import.meta.url);
@@ -35,6 +37,12 @@ const storage = multer.diskStorage({
 }); //how to save files locally 
 const upload = multer({storage});
 
+//ROUTES WITH FILES
+app.post("/auth/register", upload.single("picture"), register);
+
+//ROUTES
+app.use("/auth", authRoutes);
+
 // MONGOOSE - MongoDB SetUp
 const PORT = process.env.PORT || 3030;
 mongoose
@@ -43,7 +51,7 @@ mongoose
     useUnifiedTopology: true,
 }).then(() => {
     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
-}).catch((err) => console.log(`${err} did not connetct`));
+}).catch((err) => console.log(`${err} did not connect`));
 
 
 
