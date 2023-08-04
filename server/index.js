@@ -9,6 +9,7 @@ import morgan from "morgan";
 import path from "path"; //allows to upload files
 import { fileURLToPath } from 'url'; //allows to upload files
 import authRoutes from './routes/auth.js';
+import userRoutes from './routes/users.js';
 import { register } from './controllers/auth.js';
 
 // CONFIGURATIONS MIDDLEWARE
@@ -42,6 +43,7 @@ app.post("/auth/register", upload.single("picture"), register);
 
 //ROUTES
 app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 // MONGOOSE - MongoDB SetUp
 const PORT = process.env.PORT || 3030;
