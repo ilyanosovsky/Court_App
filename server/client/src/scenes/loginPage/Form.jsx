@@ -6,7 +6,14 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  FormControl,
+  InputLabel,
+  Select,    
+  MenuItem,  
+  FormHelperText,
+  Tooltip
 } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik"; //form library
 import * as yup from "yup"; //validation library
@@ -22,7 +29,7 @@ const registerSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
   location: yup.string().required("required"),
-  level: yup.string().required("required"),
+  level: yup.string().required("Please select a level"),
   picture: yup.string().required("required"),
 });
 
@@ -161,18 +168,68 @@ const Form = () => {
                   helperText={touched.location && errors.location}
                   sx={{ gridColumn: "span 4" }}
                 />
-                <TextField
-                  label="Level"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.level}
-                  name="level"
-                  error={
-                    Boolean(touched.level) && Boolean(errors.level)
-                  }
-                  helperText={touched.level && errors.level}
-                  sx={{ gridColumn: "span 4" }}
-                />
+
+                <FormControl variant="standard" value={values.level} sx={{ gridColumn: "span 4" }}>
+                  <InputLabel id="level-label">Tennis Level</InputLabel>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      pr: "0.1rem"
+                    }}
+                  >
+                    <Tooltip
+                      title={
+                        <Typography variant="body2">
+                          <strong>Complete Amateur:</strong> Individuals who have just started playing tennis and are learning the basic rules, strokes, and techniques.
+                          <br />
+                          <strong>Intermediate Players:</strong> Players who have developed some consistency in their strokes and can rally with other players.
+                          <br />
+                          <strong>Advanced Players:</strong> Individuals who regularly compete in local tournaments and leagues. They have honed their skills and tactics.
+                          <br />
+                          <strong>Professional Players:</strong> Players who have obtained a professional ranking and compete in lower-tier tournaments to gain experience and ranking points.
+                          <br />
+                          <strong>Elite Players:</strong> Among the best in the world, these players regularly compete in major tournaments and are often title contenders.
+                        </Typography>
+                      }
+                      arrow
+                      placement="top"
+                    >
+                      <InfoOutlinedIcon
+                        sx={{
+                          marginLeft: "0.5rem",
+                          verticalAlign: "middle",
+                          cursor: "help",
+                        }}
+                      />
+                    </Tooltip>
+                  </Box>
+
+                  <Select
+                    labelId="level-label"
+                    value={values.level}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    name="level"
+                    error={Boolean(touched.level) && Boolean(errors.level)}
+                  >
+                    <MenuItem value="">
+                      <Typography>Choose Level</Typography>
+                    </MenuItem>
+                    <MenuItem value="Complete Amateur">Complete Amateur</MenuItem>
+                    <MenuItem value="Intermediate Players">Intermediate Player</MenuItem>
+                    <MenuItem value="Advanced Players">Advanced Player</MenuItem>
+                    <MenuItem value="Professional Players">Professional Player</MenuItem>
+                    <MenuItem value="Elite Players">Elite Player</MenuItem>
+                  </Select>
+                  {touched.level && errors.level && (
+                    <FormHelperText error>{errors.level}</FormHelperText>
+                  )}
+                </FormControl>
+
                 <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
