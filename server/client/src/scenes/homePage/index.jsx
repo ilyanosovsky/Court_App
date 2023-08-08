@@ -13,7 +13,13 @@ const HomePage = () => {
 
   return (
     <Box>
-      <Navbar />
+      <Box 
+      position="sticky"
+      top="0"
+      zIndex="1000">
+        <Navbar />
+      </Box>
+      
       <Box
         width="100%"
         padding="2rem 6%"
