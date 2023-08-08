@@ -142,6 +142,25 @@ export const users = [
   },
 ];
 
+export const courts = [
+  {
+    _id: new mongoose.Types.ObjectId(),
+    courtName: "Magic",
+    picturePath: "court1.jpg",
+    facilities: [
+      "parking",
+      "shower"
+    ],
+    day: "all week",
+    startTime: "8:00",
+    endTime: "23:00",
+    location: "Haifa, Israel",
+    ground: "grass",
+    latitude: "",
+    longitude: "",
+  }
+]
+
 export const posts = [
   {
     _id: new mongoose.Types.ObjectId(),
