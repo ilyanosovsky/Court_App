@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema(
     {
+        //from USER
         userId: {
             type: String,
             required: true,
@@ -14,18 +15,35 @@ const postSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        location: String,
-        description: String,
-        picturePath: String,
+        level: String,
         userPicturePath: String,
+
+        //from COURT
+        courtId: {
+            type: String,
+            required: true,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        location: String,
+        courtPicturePath: String,
+
+        //from POST
+        dateAndTime: {
+            type: Date,
+            required: true,
+        },
+        description: String,
+        participants: {
+            type: Array,
+            default: [],
+        },
         likes: {
             type: Map,
             of: Boolean,
         },
-        comments: {
-            type: Array,
-            default: []
-        }
     },
     { timestamps: true }
 );
