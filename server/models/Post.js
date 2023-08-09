@@ -25,7 +25,6 @@ const postSchema = mongoose.Schema(
         },
         name: {
             type: String,
-            required: true,
         },
         location: String,
         courtPicturePath: String,
@@ -51,43 +50,3 @@ const postSchema = mongoose.Schema(
 const Post = mongoose.model('Post', postSchema);
 
 export default Post;
-
-// import mongoose from "mongoose";
-
-// const PostSchema = new mongoose.Schema(
-//   {
-//     user: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "User",
-//       required: true,
-//     },
-//     description: {
-//       type: String,
-//       required: true,
-//       maxLength: 300,
-//     },
-//     dateAndTime: {
-//       type: Date, // Modify the type to match your needs (e.g., String, Date)
-//       required: true,
-//     },
-//     court: {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Court", // Reference to the Court model
-//       required: true,
-//     },
-//     picturePath: {
-//       type: String,
-//       default: "",
-//     },
-//     participants: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "User",
-//       },
-//     ],
-//   },
-//   { timestamps: true }
-// );
-
-// const Post = mongoose.model("Post", PostSchema);
-// export default Post;

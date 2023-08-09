@@ -163,27 +163,22 @@ export const courts = [
   }
 ]
 
-// export const posts2 = 
-//   {
-//     userId: ObjectId("64ce70c7df05dd721bd344da"),
-//     firstName: "Steve",
-//     lastName: "Ralph",
-//     location: "New York, CA",
-//     description: "Some really long random description",
-//     picturePath: "post1.jpeg",
-//     userPicturePath: "p3.jpeg",
-//     likes: new Map([
-//       [userIds[0], true],
-//       [userIds[2], true],
-//       [userIds[3], true],
-//       [userIds[4], true],
-//     ]),
-//     comments: [
-//       "random comment",
-//       "another random comment",
-//       "yet another random comment",
-//     ],
-//   }
+export const posts2 = 
+  {
+    userId: "64ce70c7df05dd721bd344da",
+    firstName: "Ivan",
+    lastName: "Kozin",
+    level: "Pro",
+    userPicturePath: "p7.jpeg",
+    courtId: "64d23b1ff62c9c1713f3dc0a",
+    name: "Magic",
+    location: "Haifa, Israel",
+    courtPicturePath: "court1.jpg",
+    dateAndTime: "2023-08-05T15:54:47.018+00:00",
+    description: "Some really long random description",
+    participants: [],
+    likes: {},
+  }
 
 
 

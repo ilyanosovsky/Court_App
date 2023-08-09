@@ -46,23 +46,32 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           firstName,
           lastName,
           description,
-          location,
+          level,
           picturePath,
           userPicturePath,
+          courtId,
+          name,
+          location, // Make sure this property is included
+          dateAndTime,
+          participants,
           likes,
-          comments,
         }) => (
           <PostWidget
-            key={_id}
-            postId={_id}
-            postUserId={userId}
-            name={`${firstName} ${lastName}`}
-            description={description}
-            location={location}
-            picturePath={picturePath}
-            userPicturePath={userPicturePath}
-            likes={likes}
-            comments={comments}
+          key={_id}
+          postId={_id}
+          postUserId={userId}
+          name={`${firstName} ${lastName}`}
+          description={description}
+          level={level}
+          picturePath={picturePath}
+          userPicturePath={userPicturePath}
+          courtId={courtId}
+          courtName={name}
+          courtPicturePath={picturePath}
+          courtLocation={location} // Pass court location
+          dateAndTime={dateAndTime}
+          participants={participants}
+          likes={likes}
           />
         )
       )}
