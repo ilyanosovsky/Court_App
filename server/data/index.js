@@ -142,6 +142,47 @@ export const users = [
   },
 ];
 
+
+
+export const courts = [
+  {
+    _id: new mongoose.Types.ObjectId(),
+    courtName: "Magic",
+    picturePath: "court1.jpg",
+    facilities: [
+      "parking",
+      "shower"
+    ],
+    day: "all week",
+    startTime: "8:00",
+    endTime: "23:00",
+    location: "Haifa, Israel",
+    ground: "grass",
+    latitude: "",
+    longitude: "",
+  }
+]
+
+export const posts2 = 
+  {
+    userId: "64ce70c7df05dd721bd344da",
+    firstName: "Ivan",
+    lastName: "Kozin",
+    level: "Pro",
+    userPicturePath: "p7.jpeg",
+    courtId: "64d23b1ff62c9c1713f3dc0a",
+    name: "Magic",
+    location: "Haifa, Israel",
+    courtPicturePath: "court1.jpg",
+    dateAndTime: "2023-08-05T15:54:47.018+00:00",
+    description: "Some really long random description",
+    participants: [],
+    likes: {},
+  }
+
+
+
+
 export const posts = [
   {
     _id: new mongoose.Types.ObjectId(),

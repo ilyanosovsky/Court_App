@@ -1,21 +1,5 @@
 import mongoose from "mongoose";
 
-// Sub document schema for working hours
-const WorkingHoursSchema = new mongoose.Schema({
-  day: {
-    type: String,
-    required: true,
-  },
-  startTime: {
-    type: String,
-    required: true,
-  },
-  endTime: {
-    type: String,
-    required: true,
-  },
-});
-
 const CourtSchema = new mongoose.Schema(
   {
     courtName: {
@@ -32,8 +16,17 @@ const CourtSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    // Using the WorkingHoursSchema sub document for working hours
-    workingHours: [WorkingHoursSchema],
+    //working hours
+    day: {
+      type: String,
+    },
+    startTime: {
+      type: String,
+    },
+    endTime: {
+      type: String,
+    },
+    
     location: String,
     ground: String,
     // Adding fields for latitude and longitude coordinates
@@ -44,4 +37,5 @@ const CourtSchema = new mongoose.Schema(
 );
 
 const Court = mongoose.model("Court", CourtSchema);
+
 export default Court;

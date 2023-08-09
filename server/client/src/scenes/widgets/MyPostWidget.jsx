@@ -1,11 +1,7 @@
 import {
     EditOutlined,
-    DeleteOutlined,
-    AttachFileOutlined,
-    GifBoxOutlined,
-    ImageOutlined,
-    MicOutlined,
-    MoreHorizOutlined,
+    AddLocationOutlined,
+    EventOutlined,
   } from "@mui/icons-material";
   import {
     Box,
@@ -16,35 +12,53 @@ import {
     Button,
     IconButton,
     useMediaQuery,
+    MenuItem,
+    Select,
+    FormControl,
+    InputLabel,
+    TextField,
   } from "@mui/material";
   import FlexBetween from "components/FlexBetween";
-  import Dropzone from "react-dropzone";
   import UserImage from "components/UserImage";
   import WidgetWrapper from "components/WidgetWrapper";
-  import { useState } from "react";
+  import { useState, useEffect } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "state";
+  import { fetchCourts } from "api/courts";
   
   const MyPostWidget = ({ picturePath }) => {
     const dispatch = useDispatch();
-    const [isImage, setIsImage] = useState(false); //to add an image
-    const [image, setImage] = useState(null); // actual image
     const [post, setPost] = useState(""); // post content 
+    const [selectedCourt, setSelectedCourt] = useState(""); // selected court
+    const [selectedDate, setSelectedDate] = useState(null); // State for selected date and time
+    const [courts, setCourts] = useState([]); // list of courts
     const { palette } = useTheme(); // our colors
-    const { _id } = useSelector((state) => state.user); // send it to the Back
+    const { _id, firstName, lastName, level } = useSelector((state) => state.user); // send it to the Back
     const token = useSelector((state) => state.token);
-    const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-    const mediumMain = palette.neutral.mediumMain;
-    const medium = palette.neutral.medium;
+    // const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+    // const mediumMain = palette.neutral.mediumMain;
+    // const medium = palette.neutral.medium;
+
+      // Fetch the list of courts when the component mounts
+    useEffect(() => {
+      async function fetchCourtsData() {
+        try {
+          const courtsData = await fetchCourts();
+          setCourts(courtsData);
+        } catch (error) {
+          console.error("Error fetching courts:", error);
+        }
+      }
+
+      fetchCourtsData();
+    }, []);
   
     const handlePost = async () => {
       const formData = new FormData();
       formData.append("userId", _id);
+      formData.append("courtId", selectedCourt);
       formData.append("description", post);
-      if (image) {
-        formData.append("picture", image); //ROUTES with Files picture - key
-        formData.append("picturePath", image.name);
-      }
+      formData.append("dateAndTime", selectedDate); // Append selected date and time to the form data
   
       const response = await fetch(`http://localhost:3001/posts`, {
         method: "POST",
@@ -53,7 +67,6 @@ import {
       });
       const posts = await response.json();
       dispatch(setPosts({ posts }));
-      setImage(null); 
       setPost("");
     };
   
@@ -62,7 +75,7 @@ import {
         <FlexBetween gap="1.5rem">
           <UserImage image={picturePath} />
           <InputBase
-            placeholder="Description of the game..."
+            placeholder="Description of the Match..."
             onChange={(e) => setPost(e.target.value)}
             value={post}
             sx={{
@@ -73,89 +86,49 @@ import {
             }}
           />
         </FlexBetween>
-        {isImage && (
-          <Box
-            border={`1px solid ${medium}`}
-            borderRadius="5px"
-            mt="1rem"
-            p="1rem"
-          >
-            <Dropzone
-              acceptedFiles=".jpg,.jpeg,.png"
-              multiple={false}
-              onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <FlexBetween>
-                  <Box
-                    {...getRootProps()}
-                    border={`2px dashed ${palette.primary.main}`}
-                    p="1rem"
-                    width="100%"
-                    sx={{ "&:hover": { cursor: "pointer" } }}
-                  >
-                    <input {...getInputProps()} />
-                    {!image ? (
-                      <p>Add Image Here</p>
-                    ) : (
-                      <FlexBetween>
-                        <Typography>{image.name}</Typography>
-                        <EditOutlined />
-                      </FlexBetween>
-                    )}
-                  </Box>
-                  {image && (
-                    <IconButton
-                      onClick={() => setImage(null)}
-                      sx={{ width: "15%" }}
-                    >
-                      <DeleteOutlined />
-                    </IconButton>
-                  )}
-                </FlexBetween>
-              )}
-            </Dropzone>
-          </Box>
-        )}
   
         <Divider sx={{ margin: "1.25rem 0" }} />
-  
+
         <FlexBetween>
-          <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
-            <ImageOutlined sx={{ color: mediumMain }} />
-            <Typography
-              color={mediumMain}
-              sx={{ "&:hover": { cursor: "pointer", color: medium } }}
+          <FormControl fullWidth variant="outlined" sx={{ marginBottom: "1rem" }}>
+            <InputLabel>Select a Court</InputLabel>
+            <Select
+              value={selectedCourt}
+              onChange={(e) => setSelectedCourt(e.target.value)}
+              label="Select a Court"
             >
-              Image
-            </Typography>
-          </FlexBetween>
+              {courts.map((court) => (
+                <MenuItem key={court._id} value={court._id}>
+                  {court.courtName} court; location: {court.location}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </FlexBetween>
+
+        <FlexBetween>
+        {/* Date and Time Picker */}
+          <TextField
+              id="dateAndTime"
+              label="Date and Time"
+              type="datetime-local"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <Box>
+              <Typography>{selectedCourt}</Typography>              
+            </Box>
+        </FlexBetween>
   
-          {isNonMobileScreens ? (
-            <>
-              <FlexBetween gap="0.25rem">
-                <GifBoxOutlined sx={{ color: mediumMain }} />
-                <Typography color={mediumMain}>Clip</Typography>
-              </FlexBetween>
-  
-              <FlexBetween gap="0.25rem">
-                <AttachFileOutlined sx={{ color: mediumMain }} />
-                <Typography color={mediumMain}>Attachment</Typography>
-              </FlexBetween>
-  
-              <FlexBetween gap="0.25rem">
-                <MicOutlined sx={{ color: mediumMain }} />
-                <Typography color={mediumMain}>Audio</Typography>
-              </FlexBetween>
-            </>
-          ) : (
-            <FlexBetween gap="0.25rem">
-              <MoreHorizOutlined sx={{ color: mediumMain }} />
-            </FlexBetween>
-          )}
-  
+        <FlexBetween> 
+            <Box>
+       
+            </Box>
           <Button
-            disabled={!post}
+            disabled={!post || !selectedCourt}
             onClick={handlePost}
             sx={{
               color: palette.background.alt,
@@ -163,7 +136,7 @@ import {
               borderRadius: "3rem",
             }}
           >
-            POST
+            Create a Match
           </Button>
         </FlexBetween>
       </WidgetWrapper>
