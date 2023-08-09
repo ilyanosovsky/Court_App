@@ -33,6 +33,7 @@ const PostWidget = ({
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
 
+
   const [courts, setCourts] = useState([]); // list of courts
 
   const { palette } = useTheme();
@@ -57,6 +58,8 @@ const PostWidget = ({
       try {
         const courtsData = await fetchCourts();
         setCourts(courtsData);
+        // console.log("setCourts ->", setCourts);
+        // console.log("courtsData ->", courtsData);
       } catch (error) {
         console.error("Error fetching courts:", error);
       }
@@ -81,6 +84,14 @@ const PostWidget = ({
       dispatch(setPost({ post: updatedPost }));
     };
 
+    useEffect(() => {
+      console.log("Court ID:", courtId);
+      console.log("Court Name:", courtName);
+      console.log("Court Location:", courtLocation);
+      console.log("Date and Time:", dateAndTime);
+    }, [courtId, courtName, courtLocation, dateAndTime]);
+  
+
   return (
     <WidgetWrapper m="2rem 0">
       <Friend
@@ -92,7 +103,7 @@ const PostWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
-      {picturePath && (
+      {courtPicturePath && (
         <img
           width="100%"
           height="auto"
@@ -104,17 +115,24 @@ const PostWidget = ({
             {/* Court Info */}
       <FlexBetween mt="1rem">
         <Box>
-          <Typography variant="subtitle1">{courtName}</Typography>
+          <Typography variant="subtitle1"> Name: {courtName}</Typography>
           <Typography variant="body2" color={main}>
-            {courtLocation}
+            Court location: {courtLocation}
           </Typography>
         </Box>
       </FlexBetween>
             {/* Date and Join Button */}
       <FlexBetween mt="1rem">
         <Typography variant="body2" color={main}>
-          Date: {new Date(dateAndTime).toLocaleString()}
+          Date of the Match: {new Date(dateAndTime).toLocaleString(undefined, {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          })}
         </Typography>
+
         {!participants.includes(loggedInUserId) && (
           <Button
             onClick={joinMatch}
@@ -125,6 +143,7 @@ const PostWidget = ({
           </Button>
         )}
       </FlexBetween>
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
@@ -137,10 +156,9 @@ const PostWidget = ({
             </IconButton>
             <Typography>{likeCount}</Typography>
           </FlexBetween>
-
         </FlexBetween>
-
       </FlexBetween>
+
     </WidgetWrapper>
   );
 };

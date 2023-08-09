@@ -44,3 +44,13 @@ export const getCourt = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 };
+
+export const getPostCourt = async (req, res) => {
+    try {
+        const { postId } = req.params;
+        const court = await Court.find({ postId });
+        res.status(200).json(court);
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+    }
+};
