@@ -18,6 +18,15 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
     dispatch(setPosts({ posts: data }));
   };
 
+  const getCourts = async () => {
+    const response = await fetch("http://localhost:3001/courts", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
+    dispatch(setCourts({ courts: data }));
+  };
+
   const getUserPosts = async () => {
     const response = await fetch(
       `http://localhost:3001/posts/${userId}/posts`,
@@ -30,23 +39,13 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
     dispatch(setPosts({ posts: data }));
   };
 
-  // const getPostCourt = async () => {
-  //   const response = await fetch(`http://localhost:3001/${postId}/court`, {
-  //     method: "GET",
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   });
-  //   const data = await response.json();
-  //   dispatch(setCourts({ posts: data }));
-  // };
-
-
   useEffect(() => {
     if (isProfile) {
       getUserPosts();
-      // getPostCourt();
+      getCourts();
     } else {
       getPosts();
-      // getPostCourt();
+      getCourts();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -74,9 +73,18 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
           participants,
           likes,
         }) => {
-          console.log("Current post in return:", courts);
+
+          const selectedCourt = courts.find(court => court._id === courtId);
+          if (!selectedCourt) {
+            return null; // If court not found, skip rendering
+          }
+
+          console.log("Courts in return:", courts);
           console.log("Posts Data in return:", posts);
-          console.log("User Picture Path", userPicturePath);
+          console.log("User Id in return ->", userId);
+          console.log("User Picture Path in return ->", userPicturePath);
+          console.log("Court name in return ->", selectedCourt.courtName);
+
           return (
           <PostWidget
           key={_id}
@@ -88,9 +96,9 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
           picturePath={picturePath}
           userPicturePath={userPicturePath}
           courtId={courtId}
-          // courtName={court.courtName}
+          courtName={selectedCourt.courtName}
           courtPicturePath={courtPicturePath}
-          courtLocation={location} // Pass court location
+          courtLocation={location}
           dateAndTime={dateAndTime}
           participants={participants}
           likes={likes}
