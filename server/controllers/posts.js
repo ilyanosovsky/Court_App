@@ -83,22 +83,12 @@ export const joinMatch = async (req, res) => {
       const { id } = req.params;
       const { userId } = req.body;
   
-      if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ message: "Post not found" });
-      }
-  
-      const post = await Post.findById(id);
-  
-      if (!post) {
-        return res.status(404).json({ message: "Post not found" });
-      }
-  
-      if (post.participants.includes(userId)) {
-        return res.status(409).json({ message: "User already joined the match" });
-      }
-  
-      post.participants.push(userId);
-      const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
+      // Find the post by ID and update the participants list
+      const updatedPost = await Post.findByIdAndUpdate(
+        id,
+        { $addToSet: { participants: userId } }, // Add userId to participants array if not already present
+        { new: true }
+      );
   
       res.status(200).json(updatedPost);
     } catch (error) {
