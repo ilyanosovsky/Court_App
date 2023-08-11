@@ -49,7 +49,10 @@ const MyPostWidget = ({ picturePath }) => {
   // const mediumMain = palette.neutral.mediumMain;
   // const medium = palette.neutral.medium;
 
-    // Fetch the list of courts when the component mounts
+  const darkMode = useSelector((state) => state.mode === "dark"); // Get dark mode status from Redux store
+
+
+  // Fetch the list of courts when the component mounts
   useEffect(() => {
     async function fetchCourtsData() {
       try {
@@ -125,12 +128,18 @@ const MyPostWidget = ({ picturePath }) => {
       {showMap && (
         <MapContainer
           center={[32.794044, 34.989571]} // Set the initial map center coordinates
-          zoom={13} // Set the initial zoom level
+          zoom={12} // Set the initial zoom level
           style={{ width: "100%", height: "400px", marginTop: "1rem" }}
         >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+            {/* Conditionally render the TileLayer based on dark mode */}
+            <TileLayer
+              url={
+                darkMode
+                  ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+                  : "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+              }
+              attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors'
+            />
 
           {/* Render markers for each court */}
           {courts.map((court) => (
