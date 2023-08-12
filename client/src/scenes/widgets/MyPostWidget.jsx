@@ -48,6 +48,7 @@ const MyPostWidget = ({ picturePath }) => {
   // const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   // const mediumMain = palette.neutral.mediumMain;
   // const medium = palette.neutral.medium;
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const darkMode = useSelector((state) => state.mode === "dark"); // Get dark mode status from Redux store
 
@@ -85,7 +86,7 @@ const MyPostWidget = ({ picturePath }) => {
     formData.append("description", post);
     formData.append("dateAndTime", selectedDate); // Append selected date and time to the form data
 
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`${BASE_URL}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,

@@ -33,6 +33,7 @@ const PostWidget = ({
   const loggedInUserPicturePath = useSelector((state) => state.user.picturePath); // Get the logged-in user's picture path
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   // const [hasJoined, setHasJoined] = useState(participants.includes(loggedInUserId));
 
@@ -42,7 +43,7 @@ const PostWidget = ({
 
   const patchLike = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${postId}/like`, 
+      `${BASE_URL}/posts/${postId}/like`, 
     {
       method: "PATCH",
       headers: {
@@ -58,7 +59,7 @@ const PostWidget = ({
   const joinMatch = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/posts/${postId}/join`,
+        `${BASE_URL}/posts/${postId}/join`,
         {
           method: "PATCH",
           headers: {
@@ -79,7 +80,7 @@ const PostWidget = ({
   const cancelMatch = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/posts/${postId}/join`,
+        `${BASE_URL}/posts/${postId}/join`,
         {
           method: "PATCH",
           headers: {
@@ -147,7 +148,7 @@ const PostWidget = ({
           height="auto"
           alt="court"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${courtPicturePath}`}
+          src={`${BASE_URL}/assets/${courtPicturePath}`}
         />
       )}
             {/* Court Info */}

@@ -8,9 +8,10 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
   const posts = useSelector((state) => state.posts); //grab a store of posts
   const courts = useSelector((state) => state.courts);
   const token = useSelector((state) => state.token);
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
+    const response = await fetch(`${BASE_URL}/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -19,7 +20,7 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
   };
 
   const getCourts = async () => {
-    const response = await fetch("http://localhost:3001/courts", {
+    const response = await fetch(`${BASE_URL}/courts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -29,7 +30,7 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `${BASE_URL}/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

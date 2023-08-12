@@ -1,7 +1,8 @@
 // Fetch the list of courts
 export const fetchCourts = async () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   try {
-    const response = await fetch(`http://localhost:3001/courts`, {
+    const response = await fetch(`${BASE_URL}/courts`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
