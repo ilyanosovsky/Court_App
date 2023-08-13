@@ -48,6 +48,22 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
+    // Remove a participant from a match
+    removeParticipant: (state, action) => {
+      const { postId, participant } = action.payload;
+      const updatedPosts = state.posts.map((post) => {
+        if (post._id === postId) {
+          return {
+            ...post,
+            participants: post.participants.filter(
+              (participantId) => participantId !== participant
+            ),
+          };
+        }
+        return post;
+      });
+      state.posts = updatedPosts;
+    },
     //states about Posts
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {
@@ -80,6 +96,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, addPost, updatePost, setCourts, addCourt, addParticipant, setPost } =
+export const { setMode, setLogin, setLogout, setFriends, setPosts, addPost, updatePost, setCourts, addCourt, addParticipant, removeParticipant, setPost } =
   authSlice.actions;
 export default authSlice.reducer;

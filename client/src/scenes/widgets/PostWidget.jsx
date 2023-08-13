@@ -9,7 +9,7 @@ import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 // import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, removeParticipant } from "state";
 
 const PostWidget = ({
   postId,
@@ -34,8 +34,6 @@ const PostWidget = ({
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
   const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-  // const [hasJoined, setHasJoined] = useState(participants.includes(loggedInUserId));
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -72,7 +70,6 @@ const PostWidget = ({
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
     } catch (error) {
-      // Handle error
       console.error("Error joining match:", error);
     }
   };
@@ -92,43 +89,16 @@ const PostWidget = ({
       );
   
       if (response.ok) {
-        // Remove logged-in user from participants and update the post in state
-        const updatedParticipants = participants.filter(
-          (participant) => participant !== loggedInUserId
-        );
-  
-        // Create an updated post object with the new participants list
-        const updatedPost = {
-          postId,
-          postUserId,
-          name,
-          description,
-          level,
-          picturePath,
-          userPicturePath,
-          likes,
-          courtId,
-          courtName,
-          courtLocation,
-          dateAndTime,
-          courtPicturePath, // Use the props directly
-          participants: updatedParticipants,
-        };
-  
-        dispatch(setPost({ post: updatedPost }));
+        // Dispatch the new action to remove the logged-in user from participants
+        dispatch(removeParticipant({ postId, participant: loggedInUserId }));
       } else {
-        // Handle unsuccessful cancellation
         console.error("Failed to cancel the match.");
       }
     } catch (error) {
-      // Handle error
       console.error("Error canceling match:", error);
     }
   };
   
-  
-  
-
   const isUserJoined = participants.includes(loggedInUserId);
 
   return (
@@ -159,6 +129,20 @@ const PostWidget = ({
             Court location: {courtLocation}
           </Typography>
         </Box>
+        <Box>
+        {participants.length > 0 && (
+        <FlexBetween mt="0.5rem">
+            {participants.map((participantId) => (
+              <UserImage
+                key={participantId}
+                image={participantId === loggedInUserId ? loggedInUserPicturePath : userPicturePath}
+                size="30px"
+                tooltip={participantId === loggedInUserId ? 'You' : 'Participant'}
+              />
+            ))}
+          </FlexBetween>
+        )}
+        </Box>
       </FlexBetween>
             {/* Date and Join Button */}
       <FlexBetween mt="1rem">
@@ -174,7 +158,6 @@ const PostWidget = ({
 
         {isUserJoined ? (
           <FlexBetween>
-            <UserImage image={loggedInUserPicturePath} size="40px" />
             <Button
               onClick={cancelMatch}
               variant="outlined"
@@ -195,8 +178,6 @@ const PostWidget = ({
             </Button>
           )
         )}
-
-
       </FlexBetween>
 
       <FlexBetween mt="0.25rem">
