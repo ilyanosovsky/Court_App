@@ -32,7 +32,15 @@ import {
   Marker,
   Popup,
 } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+const markerIcon = new L.Icon({
+  iconUrl: ("../assets/location.png"),
+  iconSize: [40, 40],
+  iconAnchor: [17, 46], //[left/right, top/bottom]
+  popupAnchor: [0, -46], //[left/right, top/bottom]
+});
   
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -146,6 +154,7 @@ const MyPostWidget = ({ picturePath }) => {
             <Marker
               key={court._id}
               position={[court.latitude, court.longitude]} // Use the actual coordinates of the court
+              icon={markerIcon}
               eventHandlers={{
                 click: () => handleMarkerClick(court),
               }}
