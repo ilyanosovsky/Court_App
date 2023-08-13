@@ -93,9 +93,15 @@ export const authSlice = createSlice({
     addCourt: (state, action) => {
       state.courts.push(action.payload.court);
     },
+    // Update user information
+    updateUser: (state, action) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, addPost, updatePost, setCourts, addCourt, addParticipant, removeParticipant, setPost } =
+export const { setMode, setLogin, setLogout, setFriends, setPosts, addPost, updatePost, setCourts, addCourt, addParticipant, removeParticipant, setPost, updateUser } =
   authSlice.actions;
 export default authSlice.reducer;

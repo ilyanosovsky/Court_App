@@ -1,10 +1,23 @@
 import {
-    ManageAccountsOutlined,
     EditOutlined,
     LocationOnOutlined,
     SportsTennisOutlined,
   } from "@mui/icons-material";
-  import { Box, Typography, Divider, useTheme } from "@mui/material";
+  import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+  import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+  import {
+    IconButton,
+    Box,
+    Typography,
+    Divider,
+    useTheme,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    Button,
+  } from "@mui/material";
   import UserImage from "components/UserImage";
   import FlexBetween from "components/FlexBetween";
   import WidgetWrapper from "components/WidgetWrapper";
@@ -14,6 +27,11 @@ import {
   
   const UserWidget = ({ userId, picturePath }) => {
     const [user, setUser] = useState(null); //grab the user from backend
+
+    const [editedField, setEditedField] = useState("");
+    const [editedValue, setEditedValue] = useState("");
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
@@ -34,6 +52,54 @@ import {
     useEffect(() => {
       getUser();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const handleEdit = (field) => {
+      setEditedField(field);
+      setEditedValue(user[field] || "");
+      setIsEditDialogOpen(true);
+    };
+  
+    const handleCloseEditDialog = () => {
+      setIsEditDialogOpen(false);
+      setEditedField("");
+      setEditedValue("");
+    };
+  
+    const handleSaveEdit = async () => {
+      try {
+        const updatedUserData = {
+          [editedField]: editedValue,
+        };
+
+        console.log("Sending PATCH request to:", `${BASE_URL}/users/${userId}/profile`);
+        console.log("Updated user data:", updatedUserData);
+  
+        const response = await fetch(`${BASE_URL}/users/${userId}/profile`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedUserData),
+        });
+  
+        if (!response.ok) {
+          throw new Error("Failed to update user data");
+        }
+  
+        // Update the local user data with the edited value
+        setUser((prevUser) => ({
+          ...prevUser,
+          [editedField]: editedValue,
+        }));
+  
+        handleCloseEditDialog();
+      } catch (error) {
+        console.error(error);
+        // Handle error, display a message to the user, etc.
+      }
+    };
+    
   
     if (!user) {
       return null;
@@ -47,6 +113,8 @@ import {
       viewedProfile,
       impressions,
       friends,
+      facebook,
+      telegram,
     } = user;
   
     return (
@@ -76,7 +144,6 @@ import {
               <Typography color={medium}>{friends.length} friends</Typography>
             </Box>
           </FlexBetween>
-          <ManageAccountsOutlined />
         </FlexBetween>
   
         <Divider />
@@ -100,11 +167,11 @@ import {
           <FlexBetween mb="0.5rem">
             <Typography color={medium}>Who's viewed your profile</Typography>
             <Typography color={main} fontWeight="500">
-              {viewedProfile}
+              {viewedProfile} 
             </Typography>
           </FlexBetween>
           <FlexBetween>
-            <Typography color={medium}>Impressions of your post</Typography>
+            <Typography color={medium}>Impressions of your posts</Typography>
             <Typography color={main} fontWeight="500">
               {impressions}
             </Typography>
@@ -113,38 +180,64 @@ import {
   
         <Divider />
   
-        {/* FOURTH ROW */}
-        <Box p="1rem 0">
-          <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
-            Social Profiles
-          </Typography>
-  
-          <FlexBetween gap="1rem" mb="0.5rem">
-            <FlexBetween gap="1rem">
-              <img src="../assets/twitter.png" alt="twitter" />
-              <Box>
-                <Typography color={main} fontWeight="500">
-                  Twitter
-                </Typography>
-                <Typography color={medium}>Social Network</Typography>
-              </Box>
-            </FlexBetween>
-            <EditOutlined sx={{ color: main }} />
-          </FlexBetween>
-  
+      {/* FOURTH ROW */}
+      <Box p="1rem 0">
+        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+          Social Profiles
+        </Typography>
+
+        <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
-            <FlexBetween gap="1rem">
-              <img src="../assets/linkedin.png" alt="linkedin" />
-              <Box>
-                <Typography color={main} fontWeight="500">
-                  Linkedin
-                </Typography>
-                <Typography color={medium}>Network Platform</Typography>
-              </Box>
-            </FlexBetween>
-            <EditOutlined sx={{ color: main }} />
+            <FacebookOutlinedIcon fontSize="large" sx={{ color: main }} />
+            {/* <img src="../assets/twitter.png" alt="twitter" /> */}
+            <Box>
+              <Typography color={main} fontWeight="500">
+                Facebook
+              </Typography>
+              <Typography color={medium}>{facebook || "Add your Facebook link"}</Typography>
+            </Box>
           </FlexBetween>
-        </Box>
+          <IconButton>
+            <EditOutlined sx={{ color: main }} onClick={() => handleEdit("facebook")} />
+          </IconButton>
+        </FlexBetween>
+
+        <FlexBetween gap="1rem">
+          <FlexBetween gap="1rem">
+          <SendOutlinedIcon fontSize="large" sx={{ color: main }} />
+            <Box>
+              <Typography color={main} fontWeight="500">
+                Telegram
+              </Typography>
+              <Typography color={medium}>{telegram || "Add your Telegram name"}</Typography>
+            </Box>
+          </FlexBetween>
+          <IconButton>
+            <EditOutlined sx={{ color: main }} onClick={() => handleEdit("telegram")} />
+          </IconButton>
+        </FlexBetween>
+      </Box>
+
+      {/* Edit Dialog */}
+      <Dialog open={isEditDialogOpen} onClose={handleCloseEditDialog}>
+        <DialogTitle>Edit {editedField === "facebook" ? "Facebook" : "Telegram"}</DialogTitle>
+        <DialogContent>
+          <TextField
+            label={editedField === "facebook" ? "Facebook" : "Telegram"}
+            value={editedValue}
+            onChange={(e) => setEditedValue(e.target.value)}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEditDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveEdit} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
       </WidgetWrapper>
     );
   };

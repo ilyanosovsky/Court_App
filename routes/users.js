@@ -2,17 +2,23 @@ import express from 'express';
 import {
     getUser,
     getUserFriends,
-    addRemoveFriend
+    addRemoveFriend,
+    updateUserProfile,
+    incrementProfileViews,
+    incrementPostImpressions
 } from "../controllers/users.js";
 import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // READ
-router.get("/:id", verifyToken, getUser);
-router.get("/:id/friends", verifyToken, getUserFriends);
+router.get("/:id",  getUser); // verifyToken,
+router.get("/:id/friends",  getUserFriends);// verifyToken,
 
 // UPDATE
-router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
+router.patch("/:id/:friendId",  addRemoveFriend);// verifyToken,
+router.patch("/:id/profile",  updateUserProfile); // verifyToken,// Update user profile information
+router.patch("/:id/profile/views",  incrementProfileViews); // verifyToken,// Increment profile views
+router.patch("/post/impressions",  incrementPostImpressions); // verifyToken,// Increment post impressions
 
 export default router;

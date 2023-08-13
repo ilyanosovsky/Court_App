@@ -34,8 +34,22 @@ const UserSchema = new mongoose.Schema({
     },
     location: String,
     level: String,
-    viewedProfile: Number,
-    impressions: Number,
+    viewedProfile: {
+        type: Number,
+        default: 0,
+    },
+    impressions: {
+        type: Number,
+        default: 0,
+    },
+    facebook: {
+        type: String,
+        default: "",
+    },
+    telegram: {
+        type: String,
+        default: "",
+    }
 },
     { timestamps: true } //to add when created, updated 
 );

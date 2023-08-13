@@ -221,10 +221,10 @@ const Form = () => {
                       <Typography>Choose Level</Typography>
                     </MenuItem>
                     <MenuItem value="Complete Amateur">Complete Amateur</MenuItem>
-                    <MenuItem value="Intermediate Players">Intermediate Player</MenuItem>
-                    <MenuItem value="Advanced Players">Advanced Player</MenuItem>
-                    <MenuItem value="Professional Players">Professional Player</MenuItem>
-                    <MenuItem value="Elite Players">Elite Player</MenuItem>
+                    <MenuItem value="Intermediate Player">Intermediate Player</MenuItem>
+                    <MenuItem value="Advanced Player">Advanced Player</MenuItem>
+                    <MenuItem value="Professional Player">Professional Player</MenuItem>
+                    <MenuItem value="Elite Player">Elite Player</MenuItem>
                   </Select>
                   {touched.level && errors.level && (
                     <FormHelperText error>{errors.level}</FormHelperText>

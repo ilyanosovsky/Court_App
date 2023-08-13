@@ -13,7 +13,9 @@ export const register = async (req, res) => {
             picturePath,
             friends,
             location,
-            level
+            level,
+            facebook,
+            telegram
         } = req.body;
 
         const salt = await bcrypt.genSalt();
@@ -28,8 +30,10 @@ export const register = async (req, res) => {
             friends,
             location,
             level,
-            viewedProfile: Math.floor(Math.random() * 1000),
-            impressions: Math.floor(Math.random() * 1000)
+            facebook,
+            telegram,
+            viewedProfile, // Initialize profile views to 0
+            impressions // Initialize impressions to 0
         });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
