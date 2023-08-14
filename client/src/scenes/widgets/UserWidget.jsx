@@ -32,6 +32,8 @@ import {
     const [editedValue, setEditedValue] = useState("");
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
+    // const impressionsCount = useSelector((state) => state.auth.impressionsCount);
+
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
@@ -102,7 +104,31 @@ import {
         // Handle error, display a message to the user, etc.
       }
     };
+
+    const handleViewProfile = async () => {
+      try {
+
+        console.log("Updated user data views: --->");
+        // Call the API to increment profile views
+        const response = await fetch(`http://localhost:3001/users/${userId}/profile/views`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
     
+        if (response.ok) {
+          // Update the local user data with the incremented value
+          setUser((prevUser) => ({
+            ...prevUser,
+            viewedProfile: prevUser.viewedProfile + 1,
+          }));
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle error, display a message to the user, etc.
+      }
+    };    
   
     if (!user) {
       return null;
@@ -126,7 +152,10 @@ import {
         <FlexBetween
           gap="0.5rem"
           pb="1.1rem"
-          onClick={() => navigate(`/profile/${userId}`)}
+          onClick={async () => {
+            await handleViewProfile(); // Call the function to increment profile views
+            navigate(`/profile/${userId}`);
+        }}
         >
           <FlexBetween gap="1rem">
             <UserImage image={picturePath} />
@@ -176,7 +205,8 @@ import {
           <FlexBetween>
             <Typography color={medium}>Impressions of your posts</Typography>
             <Typography color={main} fontWeight="500">
-              {impressions}
+            {/* {impressionsCount} */}
+            {impressions}
             </Typography>
           </FlexBetween>
         </Box>

@@ -57,24 +57,31 @@ export const likePost = async (req, res) => {
     try {
         const { id } = req.params;
         const { userId } = req.body;
-        const post = await Post.findById(id); //grab the post info
-        const isLiked = post.likes.get(userId); //user liked it or not
+        const post = await Post.findById(id);
+        const isLiked = post.likes.get(userId);
 
         if (isLiked) {
             post.likes.delete(userId);
         } else {
             post.likes.set(userId, true);
-        };
+        }
 
         const updatedPost = await Post.findByIdAndUpdate(
             id,
             { likes: post.likes },
-            { new: true}
+            { new: true }
         );
 
-        res.status(200).json(updatedPost); //always need to update the frontend
+        // Increment the impressions count of the post owner's user profile
+        const postOwner = await User.findById(updatedPost.postUserId); // Assuming you have a field postUserId in your Post model
+        if (postOwner) {
+            postOwner.impressions += 1;
+            await postOwner.save();
+        }
+
+        res.status(200).json(updatedPost);
     } catch (err) {
-        res.status(404).json({ message: err.message })
+        res.status(404).json({ message: err.message });
     }
 };
 

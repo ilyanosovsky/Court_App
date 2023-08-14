@@ -9,7 +9,7 @@ import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 // import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost, removeParticipant } from "state";
+import { setPost, removeParticipant, setImpressionsCount } from "state";
 
 const PostWidget = ({
   postId,
@@ -35,23 +35,34 @@ const PostWidget = ({
   const likeCount = Object.keys(likes).length;
   const BASE_URL = process.env.REACT_APP_BASE_URL;
 
+  // const impressionsCount = useSelector((state) => state.auth.impressionsCount);
+
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
+
   const patchLike = async () => {
-    const response = await fetch(
-      `${BASE_URL}/posts/${postId}/like`, 
-    {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: loggedInUserId }),
-    });
-    const updatedPost = await response.json();
-    dispatch(setPost({ post: updatedPost }));
+    try {
+      const response = await fetch(
+        `${BASE_URL}/posts/${postId}/like`, 
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: loggedInUserId }),
+        }
+      );
+      const updatedPost = await response.json();
+      dispatch(setPost({ post: updatedPost }));
+  
+      // // Dispatch the setImpressionsCount action to increment impressionsCount by 1
+      // dispatch(setImpressionsCount(impressionsCount + 1));
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
   };
 
   const joinMatch = async () => {
@@ -98,7 +109,7 @@ const PostWidget = ({
       console.error("Error canceling match:", error);
     }
   };
-  
+
   const isUserJoined = participants.includes(loggedInUserId);
 
   return (
