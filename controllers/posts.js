@@ -95,3 +95,22 @@ export const joinMatch = async (req, res) => {
       res.status(500).json({ message: "Something went wrong", error });
     }
   };
+
+  // Remove a participant from a match
+export const cancelMatch = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { userId } = req.body;
+  
+      // Find the post by ID and update the participants list to remove the user
+      const updatedPost = await Post.findByIdAndUpdate(
+        id,
+        { $pull: { participants: userId } },
+        { new: true }
+      );
+  
+      res.status(200).json(updatedPost);
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong", error });
+    }
+  };

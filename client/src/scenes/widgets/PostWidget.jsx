@@ -77,7 +77,7 @@ const PostWidget = ({
   const cancelMatch = async () => {
     try {
       const response = await fetch(
-        `${BASE_URL}/posts/${postId}/join`,
+        `${BASE_URL}/posts/${postId}/cancel`, // Use the new endpoint for cancellation
         {
           method: "PATCH",
           headers: {
