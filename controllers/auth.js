@@ -32,8 +32,8 @@ export const register = async (req, res) => {
             level,
             facebook,
             telegram,
-            viewedProfile, // Initialize profile views to 0
-            impressions // Initialize impressions to 0
+            viewedProfile: 0, // Initialize profile views to 0
+            impressions: 0 // Initialize impressions to 0
         });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
