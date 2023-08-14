@@ -68,8 +68,8 @@ export const updateUserProfile = async (req, res) => {
         const { id } = req.params;
         const { firstName, lastName, location, level, facebook, telegram } = req.body;
 
-        console.log("Updating user profile for user ID:", id);
-        console.log("Updated profile data:", req.body);
+        console.log("Updating user profile for user ID: --->", id);
+        console.log("Updated profile data: --->", req.body);
 
         const user = await User.findByIdAndUpdate(
             id,
@@ -79,6 +79,7 @@ export const updateUserProfile = async (req, res) => {
 
         res.status(200).json(user);
     } catch (err) {
+        console.error("Error updating user profile: --->", err);
         res.status(404).json({ message: err.message });
     }
 };

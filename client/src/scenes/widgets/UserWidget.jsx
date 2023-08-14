@@ -70,11 +70,11 @@ import {
         const updatedUserData = {
           [editedField]: editedValue,
         };
-
-        console.log("Sending PATCH request to:", `${BASE_URL}/users/${userId}/profile`);
-        console.log("Updated user data:", updatedUserData);
-  
-        const response = await fetch(`${BASE_URL}/users/${userId}/profile`, {
+    
+        console.log("Sending PATCH request to: --->", `http://localhost:3001/users/${userId}/profile`);
+        console.log("Updated user data: --->", updatedUserData);
+    
+        const response = await fetch(`http://localhost:3001/users/${userId}/profile`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -82,17 +82,20 @@ import {
           },
           body: JSON.stringify(updatedUserData),
         });
-  
+    
         if (!response.ok) {
           throw new Error("Failed to update user data");
         }
-  
+    
+        const data = await response.json();
+        console.log("Server response: --->", data);
+    
         // Update the local user data with the edited value
         setUser((prevUser) => ({
           ...prevUser,
           [editedField]: editedValue,
         }));
-  
+    
         handleCloseEditDialog();
       } catch (error) {
         console.error(error);
@@ -189,7 +192,6 @@ import {
         <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
             <FacebookOutlinedIcon fontSize="large" sx={{ color: main }} />
-            {/* <img src="../assets/twitter.png" alt="twitter" /> */}
             <Box>
               <Typography color={main} fontWeight="500">
                 Facebook
