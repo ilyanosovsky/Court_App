@@ -32,8 +32,6 @@ import {
     const [editedValue, setEditedValue] = useState("");
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-    // const impressionsCount = useSelector((state) => state.auth.impressionsCount);
-
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
@@ -74,10 +72,7 @@ import {
           userId: userId
         };
     
-        console.log("Sending PATCH request to: --->", `http://localhost:3001/users/facebook`);
-        console.log("Updated user data: --->", updatedUserData);
-    
-        const response = await fetch(`http://localhost:3001/users/facebook`, {
+        const response = await fetch(`${BASE_URL}/users/profile`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -111,7 +106,7 @@ import {
 
         console.log("Updated user data views: --->");
         // Call the API to increment profile views
-        const response = await fetch(`http://localhost:3001/users/${userId}/profile/views`, {
+        const response = await fetch(`${BASE_URL}/users/${userId}/profile/views`, {
           method: "PATCH",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -141,7 +136,6 @@ import {
       location,
       level,
       viewedProfile,
-      impressions,
       friends,
       facebook,
       telegram,
@@ -195,31 +189,8 @@ import {
   
         <Divider />
   
-        {/* THIRD ROW */}
-        <Box p="1rem 0">
-          <FlexBetween mb="0.5rem">
-            <Typography color={medium}>Who's viewed your profile</Typography>
-            <Typography color={main} fontWeight="500">
-              {viewedProfile} 
-            </Typography>
-          </FlexBetween>
-          <FlexBetween>
-            <Typography color={medium}>Impressions of your posts</Typography>
-            <Typography color={main} fontWeight="500">
-            {/* {impressionsCount} */}
-            {impressions}
-            </Typography>
-          </FlexBetween>
-        </Box>
-  
-        <Divider />
-  
-      {/* FOURTH ROW */}
+      {/* THIRD ROW */}
       <Box p="1rem 0">
-        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
-          Social Profiles
-        </Typography>
-
         <FlexBetween gap="1rem" mb="0.5rem">
           <FlexBetween gap="1rem">
             <FacebookOutlinedIcon fontSize="large" sx={{ color: main }} />
@@ -251,6 +222,18 @@ import {
         </FlexBetween>
       </Box>
 
+      <Divider />
+
+        {/* FOUTH ROW */}
+        <Box p="1rem 0">
+          <FlexBetween mb="0.5rem">
+            <Typography color={medium}>Number of profile views</Typography>
+            <Typography color={main} fontWeight="500">
+              {viewedProfile} 
+            </Typography>
+          </FlexBetween>
+        </Box>
+  
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onClose={handleCloseEditDialog}>
         <DialogTitle>Edit {editedField === "facebook" ? "Facebook" : "Telegram"}</DialogTitle>

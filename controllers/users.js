@@ -62,39 +62,18 @@ export const addRemoveFriend = async (req, res) => {
     }
 };
 
-// // UPDATE user profile information
-// export const updateUserProfile = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const { firstName, lastName, location, level, facebook, telegram } = req.body;
 
-//         console.log("Updating user profile for user ID: --->", id);
-//         console.log("Updated profile data: --->", req.body);
-
-//         const user = await User.findByIdAndUpdate(
-//             id,
-//             { $set: { firstName, lastName, location, level, facebook, telegram } },
-//             { new: true }
-//         );
-
-//         res.status(200).json(user);
-//     } catch (err) {
-//         console.error("Error updating user profile: --->", err);
-//         res.status(404).json({ message: err.message });
-//     }
-// };
-
-// UPDATE user profile information version 2
-export const updateUserFacebook = async (req, res) => {
+// UPDATE user Facebook link
+export const updateUserProfile = async (req, res) => {
     console.log("request body-> ", req.body);
     try {
-        const { facebook, userId } = req.body;
+        const { facebook, telegram, userId } = req.body;
 
         console.log("Updated profile data: --->", req.body);
 
         const user = await User.findByIdAndUpdate(
             userId,
-            { $set: { facebook } },
+            { $set: { facebook, telegram } },
             { new: true }
         );
 
@@ -117,23 +96,3 @@ export const incrementProfileViews = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 };
-
-// INCREMENT post impressions counter
-export const incrementPostImpressions = async (req, res) => {
-    try {
-        const { userId } = req.body;
-        const user = await User.findById(userId);
-
-        if (user) {
-            user.impressions += 1;
-            await user.save();
-
-            res.status(200).json({ message: "Post impressions incremented successfully" });
-        } else {
-            res.status(404).json({ message: "User not found" });
-        }
-    } catch (err) {
-        res.status(404).json({ message: err.message });
-    }
-};
-

@@ -38,10 +38,6 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    impressions: {
-        type: Number,
-        default: 0,
-    },
     facebook: {
         type: String,
         default: "",
