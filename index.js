@@ -57,10 +57,10 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/courts", courtRoutes);
-app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "default-src 'self'; connect-src 'self' https://api.openweathermap.org;");
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.setHeader("Content-Security-Policy", "default-src 'self'; connect-src 'self' https://api.openweathermap.org;");
+//     next();
+//   });
 // MONGOOSE - MongoDB SetUp
 const PORT = process.env.PORT || 3030;
 mongoose
