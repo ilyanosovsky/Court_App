@@ -17,6 +17,7 @@ import {
   FormControl,
   InputLabel,
   TextField,
+  Snackbar
 } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
@@ -53,6 +54,8 @@ const MyPostWidget = ({ picturePath }) => {
   const token = useSelector((state) => state.token);
   const [showMap, setShowMap] = useState(false); // map to show
   const [selectedCourtOnMap, setSelectedCourtOnMap] = useState(null); //selected courts on map
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   // const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   // const mediumMain = palette.neutral.mediumMain;
   // const medium = palette.neutral.medium;
@@ -94,15 +97,28 @@ const MyPostWidget = ({ picturePath }) => {
     formData.append("description", post);
     formData.append("dateAndTime", selectedDate); // Append selected date and time to the form data
 
-    const response = await fetch(`${BASE_URL}/posts`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    });
-    const posts = await response.json();
-    dispatch(setPosts({ posts }));
-    setPost("");
-  };
+    try {
+      const response = await fetch(`${BASE_URL}/posts`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const posts = await response.json();
+        dispatch(setPosts({ posts }));
+        setPost("");
+        setIsSnackbarOpen(true);
+        setSnackbarMessage("Post created successfully!");
+
+    } else {
+      setSnackbarMessage("Failed to create post.");
+    }
+  } catch (error) {
+    setSnackbarMessage("An error occurred.");
+    console.error("Error creating post:", error);
+  }
+};
 
   console.log("my post: courts data ->", courts);
   // Find the selected court based on the selectedCourt value
@@ -227,6 +243,14 @@ const MyPostWidget = ({ picturePath }) => {
           Create a Match
         </Button>
       </FlexBetween>
+          
+      {/* snackbar to open when post was created successfully  */}
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={3000} // Adjust the duration as needed
+        onClose={() => setIsSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </WidgetWrapper>
   );
 };

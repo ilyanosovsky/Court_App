@@ -7,7 +7,6 @@ import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
-// import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost, removeParticipant } from "state";
 
@@ -25,7 +24,7 @@ const PostWidget = ({
   courtLocation,
   dateAndTime,
   courtPicturePath,
-  participants
+  participants,
 }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
@@ -40,7 +39,6 @@ const PostWidget = ({
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
-
 
   const patchLike = async () => {
     try {
