@@ -6,7 +6,6 @@ const initialState = {
   token: null,
   posts: [],
   courts: [], // Add a new field for courts
-  impressionsCount: 0, // Add a new field for impressions count
 };
 
 export const authSlice = createSlice({
@@ -100,13 +99,9 @@ export const authSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       }
     },
-    // Add the new reducer
-    setImpressionsCount: (state, action) => {
-      state.impressionsCount = action.payload;
-    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, addPost, updatePost, setCourts, addCourt, addParticipant, removeParticipant, setPost, updateUser, setImpressionsCount } =
+export const { setMode, setLogin, setLogout, setFriends, setPosts, addPost, updatePost, setCourts, addCourt, addParticipant, removeParticipant, setPost, updateUser } =
   authSlice.actions;
 export default authSlice.reducer;

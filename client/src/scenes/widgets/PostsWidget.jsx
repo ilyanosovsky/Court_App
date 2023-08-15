@@ -50,8 +50,6 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log("Posts Data before return:", posts);
-  console.log("Current post court before return:", courts);
 
   const reversedPosts = [...posts].reverse();
 
@@ -79,12 +77,6 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
           if (!selectedCourt) {
             return null; // If court not found, skip rendering
           }
-
-          console.log("Courts in return:", courts);
-          console.log("Posts Data in return:", posts);
-          console.log("User Id in return ->", userId);
-          console.log("User Picture Path in return ->", userPicturePath);
-          console.log("Court name in return ->", selectedCourt.courtName);
 
           return (
           <PostWidget

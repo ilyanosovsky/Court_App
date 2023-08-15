@@ -9,7 +9,7 @@ import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 // import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost, removeParticipant, setImpressionsCount } from "state";
+import { setPost, removeParticipant } from "state";
 
 const PostWidget = ({
   postId,
@@ -58,8 +58,6 @@ const PostWidget = ({
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
   
-      // // Dispatch the setImpressionsCount action to increment impressionsCount by 1
-      // dispatch(setImpressionsCount(impressionsCount + 1));
     } catch (error) {
       console.error("Error liking post:", error);
     }

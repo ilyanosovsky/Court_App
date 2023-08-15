@@ -104,7 +104,6 @@ import {
     const handleViewProfile = async () => {
       try {
 
-        console.log("Updated user data views: --->");
         // Call the API to increment profile views
         const response = await fetch(`${BASE_URL}/users/${userId}/profile/views`, {
           method: "PATCH",

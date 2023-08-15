@@ -65,11 +65,8 @@ export const addRemoveFriend = async (req, res) => {
 
 // UPDATE user Facebook link
 export const updateUserProfile = async (req, res) => {
-    console.log("request body-> ", req.body);
     try {
         const { facebook, telegram, userId } = req.body;
-
-        console.log("Updated profile data: --->", req.body);
 
         const user = await User.findByIdAndUpdate(
             userId,
@@ -79,14 +76,12 @@ export const updateUserProfile = async (req, res) => {
 
         res.status(200).json(user);
     } catch (err) {
-        console.error("Error updating user profile: --->", err);
         res.status(404).json({ message: err.message });
     }
 };
 
 // INCREMENT profile views counter
 export const incrementProfileViews = async (req, res) => {
-    console.log("request params-> ", req.params.id);
     try {
         const { id } = req.params;
         await User.findByIdAndUpdate(id, { $inc: { viewedProfile: 1 } });
