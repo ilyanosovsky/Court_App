@@ -70,9 +70,13 @@ const WeatherForecastWidget = () => {
     setShowWeather([]);
 
     try {
+      
       const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${Api_key}`;
       const response = await fetch(URL);
       const data = await response.json();
+
+      console.log("response on server ----->", response);
+      console.log("data on server ----->", data);
 
       setApiData(data);
 

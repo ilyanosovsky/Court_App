@@ -71,12 +71,13 @@ import {
       try {
         const updatedUserData = {
           [editedField]: editedValue,
+          userId: userId
         };
     
-        console.log("Sending PATCH request to: --->", `http://localhost:3001/users/${userId}/profile`);
+        console.log("Sending PATCH request to: --->", `http://localhost:3001/users/facebook`);
         console.log("Updated user data: --->", updatedUserData);
     
-        const response = await fetch(`http://localhost:3001/users/${userId}/profile`, {
+        const response = await fetch(`http://localhost:3001/users/facebook`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

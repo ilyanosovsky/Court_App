@@ -62,18 +62,39 @@ export const addRemoveFriend = async (req, res) => {
     }
 };
 
-// UPDATE user profile information
-export const updateUserProfile = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { firstName, lastName, location, level, facebook, telegram } = req.body;
+// // UPDATE user profile information
+// export const updateUserProfile = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const { firstName, lastName, location, level, facebook, telegram } = req.body;
 
-        console.log("Updating user profile for user ID: --->", id);
+//         console.log("Updating user profile for user ID: --->", id);
+//         console.log("Updated profile data: --->", req.body);
+
+//         const user = await User.findByIdAndUpdate(
+//             id,
+//             { $set: { firstName, lastName, location, level, facebook, telegram } },
+//             { new: true }
+//         );
+
+//         res.status(200).json(user);
+//     } catch (err) {
+//         console.error("Error updating user profile: --->", err);
+//         res.status(404).json({ message: err.message });
+//     }
+// };
+
+// UPDATE user profile information version 2
+export const updateUserFacebook = async (req, res) => {
+    console.log("request body-> ", req.body);
+    try {
+        const { facebook, userId } = req.body;
+
         console.log("Updated profile data: --->", req.body);
 
         const user = await User.findByIdAndUpdate(
-            id,
-            { $set: { firstName, lastName, location, level, facebook, telegram } },
+            userId,
+            { $set: { facebook } },
             { new: true }
         );
 
@@ -86,6 +107,7 @@ export const updateUserProfile = async (req, res) => {
 
 // INCREMENT profile views counter
 export const incrementProfileViews = async (req, res) => {
+    console.log("request params-> ", req.params.id);
     try {
         const { id } = req.params;
         await User.findByIdAndUpdate(id, { $inc: { viewedProfile: 1 } });
