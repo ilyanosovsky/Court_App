@@ -1,8 +1,4 @@
-import {
-  EditOutlined,
-  AddLocationOutlined,
-  EventOutlined
-} from "@mui/icons-material";
+import SquareIcon from '@mui/icons-material/Square';
 import {
   Box,
   Divider,
@@ -35,6 +31,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { CenterFocusStrong } from '@mui/icons-material';
 
 const markerIcon = new L.Icon({
   iconUrl: ("../assets/location.png"),
@@ -49,7 +46,7 @@ const MyPostWidget = ({ picturePath }) => {
   const [selectedCourt, setSelectedCourt] = useState(""); // selected court
   const [selectedDate, setSelectedDate] = useState(null); // State for selected date and time
   const [courts, setCourts] = useState([]); // list of courts
-  const { palette } = useTheme(); // our colors
+  
   const { _id } = useSelector((state) => state.user); // send it to the Back
   const token = useSelector((state) => state.token);
   const [showMap, setShowMap] = useState(false); // map to show
@@ -57,8 +54,11 @@ const MyPostWidget = ({ picturePath }) => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   // const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  // const mediumMain = palette.neutral.mediumMain;
-  // const medium = palette.neutral.medium;
+
+  const { palette } = useTheme(); // our colors
+  const mediumMain = palette.neutral.mediumMain;
+  const medium = palette.neutral.medium;
+  
   const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const darkMode = useSelector((state) => state.mode === "dark"); // Get dark mode status from Redux store
@@ -126,6 +126,7 @@ const MyPostWidget = ({ picturePath }) => {
   
   return (
     <WidgetWrapper>
+    {/* user picture and input base */}
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
         <InputBase
@@ -141,12 +142,13 @@ const MyPostWidget = ({ picturePath }) => {
         />
       </FlexBetween>
 
-      <Divider sx={{ margin: "1.25rem 0" }} />
+      {/* <Divider sx={{ margin: "1.25rem 0" }} /> */}
 
-      {/* Map Toggle Button */}
-
-      <Box sx={{padding: "1rem 0rem"}}>
-        <Button onClick={toggleMap}>
+ 
+      
+      <Box sx={{padding: "1rem 0rem", textAlign: "center"}}>
+        {/* Map Toggle Button */}
+        <Button onClick={toggleMap} sx={{ width: "100%" }}>
           {showMap ? "Hide Map" : "Show Map"}
         </Button>
       {/* Leaflet Map */}
@@ -175,13 +177,14 @@ const MyPostWidget = ({ picturePath }) => {
                 click: () => handleMarkerClick(court),
               }}
             >
-              <Popup>{court.courtName}</Popup>
-            </Marker>
-          ))}
-        </MapContainer>
-      )}
-
+                  <Popup>{court.courtName}</Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+          )}
       </Box>
+
+
 
       <FlexBetween>
         <FormControl fullWidth variant="outlined" sx={{ marginBottom: "1rem" }}>
@@ -214,17 +217,55 @@ const MyPostWidget = ({ picturePath }) => {
           />
 
           {/* Display selected court information */}
-          {selectedCourtInfo && (
-            <Box 
-            sx={{ 
-              padding: "1rem 2rem" 
-              }}>
-              <Typography variant="subtitle2">Information about court:</Typography>
-              <Typography>Ground type: {selectedCourtInfo.ground}</Typography>
-              <Typography>Facilities: {selectedCourtInfo.facilities.join(", ")}</Typography>
-              <Typography>Working Hours: from {selectedCourtInfo.startTime} till {selectedCourtInfo.endTime}</Typography>
+          {selectedCourtInfo ? (
+            <Box   sx={{
+                    padding: "1rem 2rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}>
+              <Typography variant="subtitle2">
+                <strong>Ground type:</strong>{" "}
+                {selectedCourtInfo.ground === "grass" && (
+                  <>
+                    <SquareIcon sx={{ color: "green" }} />
+                    {" grass"}
+                  </>
+                )}
+                {selectedCourtInfo.ground === "clay" && (
+                  <>
+                    <SquareIcon sx={{ color: "orange" }} />
+                    {" clay"}
+                  </>
+                )}
+                {selectedCourtInfo.ground === "hard" && (
+                  <>
+                    <SquareIcon sx={{ color: "blue" }} />
+                    {" hard"}
+                  </>
+                )}
+                {!selectedCourtInfo.ground && " N/A"}
+              </Typography>
+              <Typography>
+                <strong>Facilities:</strong>{" "}
+                {selectedCourtInfo.facilities && selectedCourtInfo.facilities.length > 0
+                  ? selectedCourtInfo.facilities.join(", ")
+                  : " N/A"}
+              </Typography>
+              <Typography>
+                <strong>Working hours:</strong>{" "}
+                {selectedCourtInfo.startTime && selectedCourtInfo.endTime
+                  ? `from ${selectedCourtInfo.startTime} till ${selectedCourtInfo.endTime}`
+                  : " N/A"}
+              </Typography>
             </Box>
+          ) : (
+            <Typography variant="subtitle2">info about court will be here</Typography>
           )}
+
+
+
       </FlexBetween>
 
       <FlexBetween> 
