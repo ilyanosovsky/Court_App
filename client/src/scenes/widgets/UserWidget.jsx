@@ -197,7 +197,16 @@ import {
               <Typography color={main} fontWeight="500">
                 Facebook
               </Typography>
-              <Typography color={medium}>{facebook || "Add your Facebook link"}</Typography>
+              {facebook ? (
+                <a href={`https://www.facebook.com/${facebook}`} target="_blank" rel="noopener noreferrer">
+                  {/* Style the link text */}
+                  <Typography color={medium} sx={{ textDecoration: "underline", cursor: "pointer" }}>
+                    {facebook}
+                  </Typography>
+                </a>
+              ) : (
+                <Typography color={medium}>Add your Facebook link</Typography>
+              )}
             </Box>
           </FlexBetween>
           <IconButton>
@@ -212,7 +221,16 @@ import {
               <Typography color={main} fontWeight="500">
                 Telegram
               </Typography>
-              <Typography color={medium}>{telegram || "Add your Telegram name"}</Typography>
+              {telegram ? (
+              <a href={`https://t.me/@${telegram}`} target="_blank" rel="noopener noreferrer">
+                {/* Style the link text */}
+                <Typography color={medium} sx={{ textDecoration: "underline", cursor: "pointer" }}>
+                  @{telegram}
+                </Typography>
+              </a>
+            ) : (
+              <Typography color={medium}>Add your Telegram name</Typography>
+            )}
             </Box>
           </FlexBetween>
           <IconButton>
