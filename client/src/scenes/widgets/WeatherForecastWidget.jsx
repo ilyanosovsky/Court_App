@@ -115,11 +115,13 @@ const WeatherForecastWidget = () => {
     fetchWeather("Haifa");
   }, []);
 
-  const handleSearch = () => {
-    if (inputRef.current) {
-      const location = inputRef.current.value.trim();
-      if (location !== "") {
-        fetchWeather(location);
+  const handleSearch = (event) => {
+    if (event.key === 'Enter' || event.type === 'click') {
+      if (inputRef.current) {
+        const location = inputRef.current.value.trim();
+        if (location !== '') {
+          fetchWeather(location);
+        }
       }
     }
   };
@@ -127,11 +129,11 @@ const WeatherForecastWidget = () => {
   
   return (
     <WidgetWrapper>
-      <FlexBetween>
+      <FlexBetween mb="0.5rem">
         <Typography color={dark} variant="h5" fontWeight="500">
           Weather Forecast
         </Typography>
-        <Typography color={medium}>Current City: Haifa</Typography>
+        <Typography color={medium}>Current City: {apiData ? apiData.name : 'N/A'}</Typography>
       </FlexBetween>
       <FlexBetween
         backgroundColor={neutralLight}
@@ -143,28 +145,33 @@ const WeatherForecastWidget = () => {
           placeholder="Enter Your Location"
           type="text"
           inputRef={inputRef} // Correctly attach inputRef here
+          onKeyDown={handleSearch} // Handle Enter key
         />
         <IconButton onClick={handleSearch}>
           <Search />
         </IconButton>
       </FlexBetween>
 
-      <FlexBetween>
-        {showWeather.map((weather) => (
+
+      <Box display="flex" justifyContent="center">
+      {showWeather.map((weather) => (
           <img
             key={weather.type}
             src={weather.img}
             alt={weather.type}
-            style={{ width: "50px", height: "50px" }}
+            style={{ width: '50%', height: 'auto' }}
           />
         ))}
-      </FlexBetween>
+        </Box>
+
+
 
       {apiData && (
         <Typography color={medium} m="0.5rem 0">
           {/* Display weather information here */}
-          Temperature: {apiData.main.temp}°C<br />
-          Humidity: {apiData.main.humidity}%
+          Temperature: {apiData.main.temp} °C<br />
+          Wind: {apiData.wind.speed} m/s<br />
+          Humidity: {apiData.main.humidity} %
         </Typography>
       )}
     </WidgetWrapper>
