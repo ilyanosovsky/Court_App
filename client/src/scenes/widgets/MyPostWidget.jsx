@@ -198,7 +198,7 @@ const MyPostWidget = ({ picturePath }) => {
         autoHideDuration={3000} // Adjust the duration as needed
         onClose={() => setIsSnackbarOpen(false)}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }} // Adjust the anchor origin as needed
-      >t
+      >
         <Alert
           severity="success"
           onClose={() => setIsSnackbarOpen(false)}
