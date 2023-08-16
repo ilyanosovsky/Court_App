@@ -16,7 +16,6 @@ import {
   Alert
 } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
-import CourtInfo from 'components/CourtInfo';
 import MapWidget from "components/MapWidget";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -24,6 +23,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import { fetchCourts } from "api/courts";
+import CourtInfoPost from "components/CourtInfoPost";
 
 
 const MyPostWidget = ({ picturePath }) => {
@@ -169,7 +169,7 @@ const MyPostWidget = ({ picturePath }) => {
 
         {/* Display selected court information */}
         {selectedCourtInfo ? (
-          <CourtInfo selectedCourtInfo={selectedCourtInfo} />
+          <CourtInfoPost selectedCourtInfo={selectedCourtInfo} />
         ) : (
           <Typography variant="subtitle1">info about court will be here</Typography>
         )}

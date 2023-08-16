@@ -73,8 +73,8 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
           likes,
         }) => {
 
-          const selectedCourt = courts.find(court => court._id === courtId);
-          if (!selectedCourt) {
+          const selectedCourtInfo = courts.find(court => court._id === courtId);
+          if (!selectedCourtInfo) {
             return null; // If court not found, skip rendering
           }
 
@@ -89,13 +89,13 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
           picturePath={picturePath}
           userPicturePath={userPicturePath}
           courtId={courtId}
-          courtName={selectedCourt.courtName}
+          courtName={selectedCourtInfo.courtName}
           courtPicturePath={courtPicturePath}
           courtLocation={location}
           dateAndTime={dateAndTime}
           participants={participants}
           likes={likes}
-          selectedCourt={selectedCourt}
+          selectedCourtInfo={selectedCourtInfo}
           />
         )}
       )}

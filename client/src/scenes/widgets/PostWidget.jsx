@@ -27,7 +27,7 @@ const PostWidget = ({
   dateAndTime,
   courtPicturePath,
   participants,
-  selectedCourt, // Receive the selectedCourt prop
+  selectedCourtInfo, // Receive the selectedCourtInfo prop
 }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
@@ -36,8 +36,6 @@ const PostWidget = ({
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
   const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-  // const impressionsCount = useSelector((state) => state.auth.impressionsCount);
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -123,9 +121,9 @@ const PostWidget = ({
         {description}
       </Typography>
           {/* Display court images */}
-          {/* {selectedCourt.courtPicturePath && (
+          {/* {selectedCourtInfo.courtPicturePath && (
           <CourtImagesDisplay
-            courtPicturePath={selectedCourt.picturePath}
+            courtPicturePath={selectedCourtInfo.picturePath}
             BASE_URL={BASE_URL}
           />
            )} */}
@@ -148,7 +146,7 @@ const PostWidget = ({
         </Box>
         <Box>
           {/* INFO about court ICONS */}
-          <CourtInfoPost selectedCourt={selectedCourt} />
+          <CourtInfoPost selectedCourtInfo={selectedCourtInfo} />
         </Box>
       </FlexBetween>
 
