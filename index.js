@@ -16,10 +16,6 @@ import { register } from './controllers/auth.js';
 import { createPost } from './controllers/posts.js';
 import { createCourt } from './controllers/courts.js';
 import { verifyToken } from './middleware/auth.js';
-import User from './models/User.js';
-import Post from './models/Post.js';
-import Court from './models/Court.js';
-import { users, posts } from "./data/index.js"
 
 // CONFIGURATIONS MIDDLEWARE
 const __filename = fileURLToPath(import.meta.url);
@@ -72,10 +68,6 @@ mongoose
     useUnifiedTopology: true,
 }).then(() => {
     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
-    //manually enject the info from DATA only one time
-    // User.insertMany(users);
-    // Post.insertMany(posts);
-
 }).catch((err) => console.log(`${err} did not connect`));
 
 // Have Node serve the files for our built React app

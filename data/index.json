@@ -1,0 +1,153 @@
+[
+{
+  "courtName": "Tennis Haifa Center",
+  "picturePath": "c2.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "shower",
+    "gym",
+    "light",
+    "seats",
+    "doctor"
+  ],
+  "day": "all week",
+  "startTime": "7:00",
+  "endTime": "23:00",
+  "location": "Tsviya Ve-Yitshak St2, Haifa",
+  "ground": "hard",
+  "latitude": "32.794030",
+  "longitude": "34.966113"
+},
+
+{
+  "courtName": "Basketball & Tennis",
+  "picturePath": "c12.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "shower",
+    "gym",
+    "shop"
+  ],
+  "day": "all week",
+  "startTime": "8:00",
+  "endTime": "22:00",
+  "location": "Yokhanan Ratner St91-105, Haifa",
+  "ground": "hard",
+  "latitude": "32.791470",
+  "longitude": "35.009095"
+},
+{
+  "courtName": "Maccabi Sport",
+  "picturePath": "c3.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "cafe",
+    "gym",
+    "light",
+    "wifi"
+  ],
+  "day": "all week",
+  "startTime": "8:00",
+  "endTime": "23:00",
+  "location": "Bikurim St19, Haifa",
+  "ground": "grass",
+  "latitude": "32.800741",
+  "longitude": "34.986996"
+},
+{
+  "courtName": "Forest Tennis court",
+  "picturePath": "c1.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "shower",
+    "gym",
+    "cafe",
+    "doctor"
+  ],
+  "day": "all week",
+  "startTime": "7:00",
+  "endTime": "23:00",
+  "location": "Sderat Yitshak 17, Haifa",
+  "ground": "grass",
+  "latitude": "32.804654",
+  "longitude": "34.981717"
+},
+{
+  "courtName": "Alexey Tennis",
+  "picturePath": "c7.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "light",
+    "doctor"
+  ],
+  "day": "all week",
+  "startTime": "7:00",
+  "endTime": "23:00",
+  "location": "Hotzionut Ave 32, Haifa",
+  "ground": "clay",
+  "latitude": "32.814523",
+  "longitude": "34.991440"
+},
+{
+  "courtName": "Castle Tennis Club",
+  "picturePath": "c5.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "shower",
+    "gym",
+    "cafe",
+    "seats",
+    "doctor"
+  ],
+  "day": "all week",
+  "startTime": "7:00",
+  "endTime": "23:00",
+  "location": "Tsahal St41, Haifa",
+  "ground": "grass",
+  "latitude": "32.7826844",
+  "longitude": "34.978292"
+},
+{
+  "courtName": "Nesher Tennis",
+  "picturePath": "c10.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "shower",
+    "gym",
+    "cafe",
+    "doctor"
+  ],
+  "day": "all week",
+  "startTime": "8:00",
+  "endTime": "22:00",
+  "location": "Hashita St19, Nesher",
+  "ground": "clay",
+  "latitude": "32.766076",
+  "longitude": "35.039656"
+},
+{
+  "courtName": "Kiryat Tennis",
+  "picturePath": "c6.jpg",
+  "facilities": [
+    "parking",
+    "WC",
+    "cafe",
+    "shop",
+    "doctor"
+  ],
+  "day": "all week",
+  "startTime": "7:00",
+  "endTime": "23:00",
+  "location": "Kiryat Bialik, Kiryat",
+  "ground": "clay",
+  "latitude": "32.821977",
+  "longitude": "35.081322"
+}
+]
