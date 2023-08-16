@@ -13,6 +13,7 @@ import {
   InputLabel,
   TextField,
   Snackbar,
+  Alert
 } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import CourtInfo from 'components/CourtInfo';
@@ -191,13 +192,21 @@ const MyPostWidget = ({ picturePath }) => {
         </Button>
       </FlexBetween>
           
-      {/* snackbar to open when post was created successfully  */}
+      {/* Snackbar to open when post was created successfully */}
       <Snackbar
         open={isSnackbarOpen}
         autoHideDuration={3000} // Adjust the duration as needed
         onClose={() => setIsSnackbarOpen(false)}
-        message={snackbarMessage}
-      />
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }} // Adjust the anchor origin as needed
+      >t
+        <Alert
+          severity="success"
+          onClose={() => setIsSnackbarOpen(false)}
+          variant="filled"
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </WidgetWrapper>
   );
 };

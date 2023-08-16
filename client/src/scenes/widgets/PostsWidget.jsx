@@ -95,6 +95,7 @@ const PostsWidget = ({ userId, postId, isProfile = false }) => {
           dateAndTime={dateAndTime}
           participants={participants}
           likes={likes}
+          selectedCourt={selectedCourt}
           />
         )}
       )}
