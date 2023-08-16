@@ -5,6 +5,7 @@ import {
 import { Box, Divider, IconButton, Typography, useTheme, Button, AvatarGroup } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import CourtInfoPost from "components/CourtInfoPost";
+// import CourtImagesDisplay from "components/CourtImagesDisplay";
 import Friend from "components/Friend";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -121,6 +122,13 @@ const PostWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
+          {/* Display court images */}
+          {/* {selectedCourt.courtPicturePath && (
+          <CourtImagesDisplay
+            courtPicturePath={selectedCourt.picturePath}
+            BASE_URL={BASE_URL}
+          />
+           )} */}
       {courtPicturePath && (
         <img
           width="100%"
@@ -143,7 +151,7 @@ const PostWidget = ({
           <CourtInfoPost selectedCourt={selectedCourt} />
         </Box>
       </FlexBetween>
-      
+
             {/* Date and Join Button */}
       <FlexBetween mt="1rem">
         <Typography variant="body2" color={main}>
