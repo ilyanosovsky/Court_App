@@ -1,17 +1,3 @@
-import SquareIcon from '@mui/icons-material/Square';
-import CircleIcon from '@mui/icons-material/Circle';
-import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
-import WbIncandescentOutlinedIcon from '@mui/icons-material/WbIncandescentOutlined';
-import WcOutlinedIcon from '@mui/icons-material/WcOutlined';
-import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import DiningOutlinedIcon from '@mui/icons-material/DiningOutlined';
-import WifiOutlinedIcon from '@mui/icons-material/WifiOutlined';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined';
-import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
-import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
-import { LocalParkingOutlined, ShowerOutlined } from "@mui/icons-material";
 import {
   Box,
   Divider,
@@ -27,9 +13,9 @@ import {
   InputLabel,
   TextField,
   Snackbar,
-  Tooltip
 } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
+import CourtInfo from 'components/CourtInfo';
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState, useEffect } from "react";
@@ -229,96 +215,12 @@ const MyPostWidget = ({ picturePath }) => {
             }}
           />
 
-          {/* Display selected court information */}
-          {selectedCourtInfo ? (
-            <Box   sx={{
-                    padding: "1rem 2rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}>
-              <Typography variant="subtitle1" sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}>
-                <strong>Ground type:</strong>
-                {selectedCourtInfo.ground === "grass" && (
-                  <Tooltip title="Grass court" arrow placement='top'>
-                    <CircleIcon sx={{ color: "green", marginLeft: "0.5rem"}} />
-                  </Tooltip>
-                )}
-                {selectedCourtInfo.ground === "clay" && (
-                  <Tooltip title="Clay court" arrow placement='top'>
-                    <CircleIcon sx={{ color: "orange", marginLeft: "0.5rem" }} />
-                  </Tooltip>
-                )}
-                {selectedCourtInfo.ground === "hard" && (
-                  <Tooltip title="Hard court" arrow placement='top'>
-                    <CircleIcon sx={{ color: "blue", marginLeft: "0.5rem" }} />
-                  </Tooltip>
-                )}
-                {!selectedCourtInfo.ground && " N/A"}
-              </Typography>
-
-              {selectedCourtInfo.facilities && selectedCourtInfo.facilities.length > 0 ? (
-                <Typography variant="subtitle1" sx={{
-                    display: "flex",
-                    // justifyContent: "space-between",
-                    alignItems: "center",
-                  }}>
-                  <strong>Facilities:</strong>{" "}
-                  {selectedCourtInfo.facilities.map((facility) => (
-                    <Tooltip key={facility} title={facility} arrow placement='top'>
-                      {facility === "parking" ? (
-                        <LocalParkingOutlined sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "shower" ? (
-                        <ShowerOutlined sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "seats" ? (
-                        <ChairOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "light" ? (
-                        <WbIncandescentOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "WC" ? (
-                        <WcOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "locker" ? (
-                        <CheckroomOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "shop" ? (
-                        <ShoppingCartOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "cafe" ? (
-                        <DiningOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "wifi" ? (
-                        <WifiOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "doctor" ? (
-                        <LocalHospitalIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : facility === "gym" ? (
-                        <FitnessCenterOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-                      ) : (
-                        // Default case if facility is not parking or shower
-                        `${facility}, `
-                      )}
-                    </Tooltip>
-                  ))}
-                </Typography>
-              ) : (
-                <Typography>
-                  <strong>Facilities:</strong> N/A
-                </Typography>
-              )}
-
-              <Typography>
-                <strong>Working hours:</strong>{" "}
-                {selectedCourtInfo.startTime && selectedCourtInfo.endTime
-                  ? ` ${selectedCourtInfo.startTime} -> ${selectedCourtInfo.endTime}`
-                  : " N/A"}
-              </Typography>
-            </Box>
-          ) : (
-            <Typography variant="subtitle1">info about court will be here</Typography>
-          )}
-
-
-
+        {/* Display selected court information */}
+        {selectedCourtInfo ? (
+          <CourtInfo selectedCourtInfo={selectedCourtInfo} />
+        ) : (
+          <Typography variant="subtitle1">info about court will be here</Typography>
+        )}
       </FlexBetween>
 
       <FlexBetween> 
