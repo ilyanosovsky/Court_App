@@ -2,6 +2,7 @@ import {
   FavoriteBorderOutlined,
   FavoriteOutlined,
 } from "@mui/icons-material";
+import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import { Box, Divider, IconButton, Typography, useTheme, Button, AvatarGroup } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import CourtInfoPost from "components/CourtInfoPost";
@@ -152,8 +153,8 @@ const PostWidget = ({
 
             {/* Date and Join Button */}
       <FlexBetween mt="1rem">
-        <Typography variant="body2" color={main}>
-          Date of the Match: {new Date(dateAndTime).toLocaleString(undefined, {
+        <Typography display="flex" variant="body2" color={main}>
+          <EventAvailableOutlinedIcon />  {new Date(dateAndTime).toLocaleString(undefined, {
             year: 'numeric',
             month: 'numeric',
             day: 'numeric',

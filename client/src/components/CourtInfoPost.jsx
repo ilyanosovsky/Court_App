@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Box, Tooltip, Typography, useMediaQuery } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
 import {
@@ -18,11 +18,11 @@ import {
 import FlexBetween from "components/FlexBetween";
 
 const CourtInfoPost = ({ selectedCourtInfo }) => {
+  const isMobileScreen = useMediaQuery("(max-width: 600px)");
   return (
-    <Box>
-      <FlexBetween>
-        {/* Ground type */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+      <FlexBetween ml="0.5rem">
+        <FlexBetween flexDirection={isMobileScreen ? "column" : "row"}>
+          {/* Ground type */}
           {selectedCourtInfo && selectedCourtInfo.ground ? (
             <>
               {selectedCourtInfo.ground === "grass" && (
@@ -44,11 +44,25 @@ const CourtInfoPost = ({ selectedCourtInfo }) => {
           ) : (
             "N/A"
           )}
-        </Box>
+
+        {/* Working hours */}
+          {selectedCourtInfo ? (
+            <Tooltip
+              title={`Working hours: ${selectedCourtInfo.startTime} -> ${selectedCourtInfo.endTime}`}
+              arrow
+              placement="top"
+            >
+              <ScheduleOutlinedIcon sx={{ marginRight: "0.5rem" }} />
+            </Tooltip>
+          ) : (
+            <Typography variant="subtitle1">N/A</Typography>
+          )}
+        </FlexBetween>
+
 
         {/* Facilities */}
         {selectedCourtInfo && selectedCourtInfo.facilities && selectedCourtInfo.facilities.length > 0 ? (
-          <FlexBetween>
+          <Box display="flex"  flexWrap={isMobileScreen ? "wrap" : "nowrap"}>
             {selectedCourtInfo.facilities.map((facility) => (
               <Tooltip key={facility} title={facility} arrow placement="top">
                 {facility === "parking" ? (
@@ -79,26 +93,12 @@ const CourtInfoPost = ({ selectedCourtInfo }) => {
                 )}
               </Tooltip>
             ))}
-          </FlexBetween>
-        ) : (
-          <Typography variant="subtitle1">N/A</Typography>
-        )}
-
-        {/* Working hours */}
-        {selectedCourtInfo ? (
-          <Tooltip
-            title={`Working hours: ${selectedCourtInfo.startTime} -> ${selectedCourtInfo.endTime}`}
-            arrow
-            placement="top"
-          >
-            <ScheduleOutlinedIcon sx={{ marginRight: "0.5rem" }} />
-          </Tooltip>
+          </Box>
         ) : (
           <Typography variant="subtitle1">N/A</Typography>
         )}
 
       </FlexBetween>
-    </Box>
   );
 };
 

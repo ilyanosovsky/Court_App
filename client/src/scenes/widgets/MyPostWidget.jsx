@@ -38,7 +38,7 @@ const MyPostWidget = ({ picturePath }) => {
   const [selectedCourtOnMap, setSelectedCourtOnMap] = useState(null); //selected courts on map
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  // const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isMobileScreens = useMediaQuery("(min-width: 600px)");
 
   const { palette } = useTheme(); // our colors
   const mediumMain = palette.neutral.mediumMain;
@@ -146,14 +146,14 @@ const MyPostWidget = ({ picturePath }) => {
           >
             {courts.map((court) => (
               <MenuItem key={court._id} value={court._id}>
-                {court.courtName}; address: {court.location}
+                {court.courtName}; {court.location}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       </FlexBetween>
 
-      <FlexBetween>
+      <FlexBetween flexDirection={isMobileScreens ? "column" : "row"}>
       {/* Date and Time Picker */}
         <TextField
             id="dateAndTime"
@@ -170,7 +170,7 @@ const MyPostWidget = ({ picturePath }) => {
         {selectedCourtInfo ? (
           <CourtInfoPost selectedCourtInfo={selectedCourtInfo} />
         ) : (
-          <Typography variant="subtitle1">info about court will be here</Typography>
+          <Typography ml="0.5rem" variant="subtitle1">info about court will be here</Typography>
         )}
       </FlexBetween>
 
