@@ -141,7 +141,7 @@ const PostWidget = ({
         <Box>
           <Typography variant="subtitle1">{courtName}</Typography>
           <Typography variant="body2" color={main}>
-            Court location: {courtLocation}
+            Location: {courtLocation}
           </Typography>
         </Box>
         <Box>

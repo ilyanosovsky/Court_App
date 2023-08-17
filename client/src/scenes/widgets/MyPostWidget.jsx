@@ -94,7 +94,7 @@ const MyPostWidget = ({ picturePath }) => {
         dispatch(setPosts({ posts }));
         setPost("");
         setIsSnackbarOpen(true);
-        setSnackbarMessage("Post created successfully!");
+        setSnackbarMessage("Match created successfully!");
 
     } else {
       setSnackbarMessage("Failed to create post.");
@@ -105,7 +105,6 @@ const MyPostWidget = ({ picturePath }) => {
   }
 };
 
-  console.log("my post: courts data ->", courts);
   // Find the selected court based on the selectedCourt value
   const selectedCourtInfo = courts.find(court => court._id === selectedCourt);
   
@@ -147,7 +146,7 @@ const MyPostWidget = ({ picturePath }) => {
           >
             {courts.map((court) => (
               <MenuItem key={court._id} value={court._id}>
-                {court.courtName} court; location: {court.location}
+                {court.courtName}; address: {court.location}
               </MenuItem>
             ))}
           </Select>

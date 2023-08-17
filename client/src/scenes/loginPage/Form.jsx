@@ -110,6 +110,13 @@ const Form = () => {
     if (isRegister) await register(values, onSubmitProps);
   };
 
+  const handleInfoIconClick = (event) => {
+    const tooltip = event.currentTarget.querySelector(".MuiTooltip-tooltip");
+    if (tooltip) {
+      tooltip.style.display = tooltip.style.display === "none" ? "block" : "none";
+    }
+  };
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -205,6 +212,7 @@ const Form = () => {
                           verticalAlign: "middle",
                           cursor: "help",
                         }}
+                        onClick={handleInfoIconClick}
                       />
                     </Tooltip>
                   </Box>
