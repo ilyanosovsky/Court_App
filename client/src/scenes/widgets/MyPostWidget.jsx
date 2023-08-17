@@ -153,7 +153,7 @@ const MyPostWidget = ({ picturePath }) => {
         </FormControl>
       </FlexBetween>
 
-      <FlexBetween flexDirection={isMobileScreens ? "column" : "row"}>
+      <FlexBetween>
       {/* Date and Time Picker */}
         <TextField
             id="dateAndTime"
