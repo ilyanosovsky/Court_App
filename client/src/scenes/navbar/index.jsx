@@ -130,9 +130,9 @@ const Navbar = () => {
                     alignItems="center"
                     gap="3rem"
                 >
-
-                    {/* WEATHER INFO SHOULD BE HERE */}
+                    {/* WEATHER INFO IS HERE */}
                     <NavWeather />
+
                     <IconButton
                         onClick={() => dispatch(setMode())}
                         sx={{ fontSize: "25px" }}

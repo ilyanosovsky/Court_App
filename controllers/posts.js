@@ -72,13 +72,6 @@ export const likePost = async (req, res) => {
             { new: true }
         );
 
-        // Increment the impressions count of the post owner's user profile
-        const postOwner = await User.findById(updatedPost.postUserId); // Assuming you have a field postUserId in your Post model
-        if (postOwner) {
-            postOwner.impressions += 1;
-            await postOwner.save();
-        }
-
         res.status(200).json(updatedPost);
     } catch (err) {
         res.status(404).json({ message: err.message });

@@ -5,12 +5,12 @@ import { verifyToken } from '../middleware/auth.js';
 const router = express.Router();
 
 // READ
-router.get("/",  getFeedPosts); //verifyToken,
-router.get("/:userId/posts",  getUserPosts); //verifyToken,
+router.get("/", verifyToken, getFeedPosts);
+router.get("/:userId/posts", verifyToken, getUserPosts);
 
 // UPDATE
-router.patch("/:id/like",  likePost); //verifyToken,
-router.patch("/:id/join",  joinMatch); //verifyToken,
-router.patch("/:id/cancel", cancelMatch); // Add this line
+router.patch("/:id/like", verifyToken, likePost);
+router.patch("/:id/join", verifyToken, joinMatch);
+router.patch("/:id/cancel", verifyToken, cancelMatch);
 
 export default router;

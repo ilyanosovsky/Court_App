@@ -84,10 +84,7 @@ import {
         if (!response.ok) {
           throw new Error("Failed to update user data");
         }
-    
-        const data = await response.json();
-        console.log("Server response: --->", data);
-    
+       
         // Update the local user data with the edited value
         setUser((prevUser) => ({
           ...prevUser,
@@ -97,7 +94,6 @@ import {
         handleCloseEditDialog();
       } catch (error) {
         console.error(error);
-        // Handle error, display a message to the user, etc.
       }
     };
 
@@ -199,7 +195,6 @@ import {
               </Typography>
               {facebook ? (
                 <a href={`https://www.facebook.com/${facebook}`} target="_blank" rel="noopener noreferrer">
-                  {/* Style the link text */}
                   <Typography color={medium} sx={{ textDecoration: "underline", cursor: "pointer" }}>
                     {facebook}
                   </Typography>
@@ -223,7 +218,6 @@ import {
               </Typography>
               {telegram ? (
               <a href={`https://t.me/@${telegram}`} target="_blank" rel="noopener noreferrer">
-                {/* Style the link text */}
                 <Typography color={medium} sx={{ textDecoration: "underline", cursor: "pointer" }}>
                   @{telegram}
                 </Typography>
@@ -241,7 +235,7 @@ import {
 
       <Divider />
 
-        {/* FOUTH ROW */}
+        {/* FOURTH ROW */}
         <Box p="1rem 0">
           <FlexBetween mb="0.5rem">
             <Typography color={medium}>Number of profile views</Typography>

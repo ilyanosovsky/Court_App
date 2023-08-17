@@ -1,10 +1,7 @@
 import { 
     Box,
-    IconButton,
-    InputBase,
     Typography,
     useTheme,
-    useMediaQuery
   } from "@mui/material";
   import FlexBetween from "components/FlexBetween";
   
@@ -135,7 +132,6 @@ import {
   
         {apiData && (
           <Typography color={medium} m="0.5rem 0">
-            {/* Display the temperature */}
             {apiData.main.temp} °C
           </Typography>
         )}

@@ -4,7 +4,6 @@ import {
   InputBase,
   Typography,
   useTheme,
-  useMediaQuery
 } from "@mui/material";
 import { 
   Search
@@ -75,9 +74,6 @@ const WeatherForecastWidget = () => {
       const response = await fetch(URL);
       const data = await response.json();
 
-      console.log("response on server ----->", response);
-      console.log("data on server ----->", data);
-
       setApiData(data);
 
       if (data.cod === 404 || data.cod === 400) {
@@ -144,14 +140,13 @@ const WeatherForecastWidget = () => {
         <InputBase
           placeholder="Enter Your Location"
           type="text"
-          inputRef={inputRef} // Correctly attach inputRef here
-          onKeyDown={handleSearch} // Handle Enter key
+          inputRef={inputRef}
+          onKeyDown={handleSearch}
         />
         <IconButton onClick={handleSearch}>
           <Search />
         </IconButton>
       </FlexBetween>
-
 
       <Box display="flex" justifyContent="center">
       {showWeather.map((weather) => (
@@ -164,11 +159,8 @@ const WeatherForecastWidget = () => {
         ))}
         </Box>
 
-
-
       {apiData && (
         <Typography color={medium} m="0.5rem 0">
-          {/* Display weather information here */}
           Temperature: {apiData.main.temp} °C<br />
           Wind: {apiData.wind.speed} m/s<br />
           Humidity: {apiData.main.humidity} %

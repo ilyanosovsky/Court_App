@@ -63,7 +63,7 @@ export const addRemoveFriend = async (req, res) => {
 };
 
 
-// UPDATE user Facebook link
+// UPDATE user Facebook a Telegram links
 export const updateUserProfile = async (req, res) => {
     try {
         const { facebook, telegram, userId } = req.body;

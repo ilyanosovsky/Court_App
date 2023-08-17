@@ -1,6 +1,5 @@
 import {
   Box,
-  Divider,
   Typography,
   InputBase,
   useTheme,
@@ -125,8 +124,6 @@ const MyPostWidget = ({ picturePath }) => {
           }}
         />
       </FlexBetween>
-
-      {/* <Divider sx={{ margin: "1.25rem 0" }} /> */}
 
       <MapWidget
         showMap={showMap}

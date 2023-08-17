@@ -15,8 +15,8 @@ import "leaflet/dist/leaflet.css";
 const markerIcon = new L.Icon({
   iconUrl: ("../assets/marker.png"),
   iconSize: [40, 40],
-  iconAnchor: [17, 46], //[left/right, top/bottom]
-  popupAnchor: [0, -46], //[left/right, top/bottom]
+  iconAnchor: [17, 46], 
+  popupAnchor: [0, -46], 
 });
 
 const MapWidget = ({ showMap, toggleMap, darkMode, courts, handleMarkerClick }) => {
