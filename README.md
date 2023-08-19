@@ -5,17 +5,25 @@ Welcome to the Court App! This is a social media platform designed for tennis en
 ![Court App Screenshot](./main-dark.png)
 ![Court App Screenshot](./main-light.png)
 
-## Features
+## The Problem
 
-- **User Registration and Authentication:** Users can create accounts, log in, and access their profiles.
+Tennis enthusiasts often struggle with the following problems:
 
-- **Tennis Court Information:** Explore detailed information about different tennis courts, including location, facilities, and working hours.
+- **Finding Tennis Partners:** Locating players of similar skill levels and availability for a match can be challenging, leading to missed opportunities for enjoyable gameplay.
 
-- **Match Scheduling:** Schedule and organize matches with other users based on court availability.
+- **Discovering Suitable Tennis Courts:** Identifying nearby tennis courts with the right facilities, surfaces, and working hours can be time-consuming and frustrating.
 
-- **Weather Forecast:** Stay informed about the weather conditions in your area for optimal match planning.
+## Features & Solutions
 
-- **Dark/Light Mode:** Customize the app's appearance with dark or light mode themes.
+- **User Registration and Authentication:** Users can create accounts, log in, and access their profiles, enabling seamless connections with other players.
+
+- **Tennis Court Information:** Explore detailed information about different tennis courts, including location, facilities, and working hours. Say goodbye to uncertainty about court features.
+
+- **Match Scheduling:** Easily schedule matches with other users based on court availability, ensuring you find partners who fit your playing schedule.
+
+- **Weather Forecast:** Stay informed about the weather conditions in your area for optimal match planning. No more last-minute weather surprises.
+
+- **Dark/Light Mode:** Customize the app's appearance with dark or light mode themes, enhancing the user experience based on personal preference.
 
 ## Installation and Setup
 
