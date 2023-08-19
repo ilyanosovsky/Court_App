@@ -1,6 +1,6 @@
 # Court App
 
-Welcome to the Court App! This is a social media platform designed for tennis enthusiasts to connect, share, and engage with each other. The app provides various features for users to discover tennis courts, schedule matches, and connect with other players.
+Welcome to the Court App! This is a social media platform designed to solve the challenges faced by tennis enthusiasts when it comes to finding partners and courts to play on. The app provides a comprehensive solution with features that empower users to connect, share, and engage with fellow players.
 
 ![Court App Screenshot](./main-dark.png)
 ![Court App Screenshot](./main-light.png)
