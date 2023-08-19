@@ -33,8 +33,8 @@ Welcome to the Court App! This is a social media platform designed for tennis en
 
 4. Create a `.env` file in the root directory and set the necessary environment variables:
 
-REACT_APP_BASE_URL=https://api.example.com
-REACT_APP_WEATHER_API_KEY=your-weather-api-key
+- REACT_APP_BASE_URL=https://api.example.com
+- REACT_APP_WEATHER_API_KEY=your-weather-api-key
 
 API_key you can find after your registration on https://openweathermap.org/
 
@@ -54,7 +54,7 @@ API_key you can find after your registration on https://openweathermap.org/
 - MongoDB for DataBase https://www.mongodb.com/
 - React Router (for routing)
 - Fetch API (for data fetching)
-- OpenWeather API (for weather forecasts)
+- OpenWeather API (for weather forecasts) https://openweathermap.org/
 - Leaflet React (for Map handling) https://react-leaflet.js.org/
 - Render (for deployment web service live) https://render.com/
 
