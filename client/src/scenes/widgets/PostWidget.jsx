@@ -134,7 +134,7 @@ const PostWidget = ({
           height="auto"
           alt="court"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`${BASE_URL}/assets/${courtPicturePath}`}
+          src={courtPicturePath} //change here for court pictures of Cloudinary
         />
       )}
             {/* Court Info */}

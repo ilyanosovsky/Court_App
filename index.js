@@ -16,6 +16,7 @@ import { register } from './controllers/auth.js';
 import { createPost } from './controllers/posts.js';
 import { createCourt } from './controllers/courts.js';
 import { verifyToken } from './middleware/auth.js';
+import cloudinary from 'cloudinary';
 
 // CONFIGURATIONS MIDDLEWARE
 const __filename = fileURLToPath(import.meta.url);
@@ -32,16 +33,13 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets"))); //our directory of imges
 
-// FILE STORAGE
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "public/assets");
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-}); //how to save files locally 
-const upload = multer({storage});
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const upload = multer({ dest: 'uploads/' }); // Temporarily store uploaded files in 'uploads' directory
 
 //ROUTES WITH FILES
 app.post("/auth/register", upload.single("picture"), register);

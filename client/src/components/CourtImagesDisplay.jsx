@@ -22,7 +22,7 @@ const CourtImagesDisplay = ({ courtPicturePath, BASE_URL }) => {
     <Box>
       {/* Display main picture */}
       <img
-        src={`${BASE_URL}/assets/${courtPicturePath[selectedImage]}`}
+        src={courtPicturePath[selectedImage]}
         alt="court"
       />
 

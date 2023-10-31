@@ -1,12 +1,26 @@
 import Court from "../models/Court.js";
+import fs from 'fs';
+import cloudinary from 'cloudinary';
 
 // CREATE
 export const createCourt = async (req, res) => {
     try {
         const { courtName, picturePath, ground, location, facilities, day, startTime, endTime, latitude, longitude} = req.body;
+
+        // Upload the image to Cloudinary
+        let result;
+        try {
+            result = await cloudinary.uploader.upload(req.file.path);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to upload image to Cloudinary." });
+        }
+
+        // Delete the temporary file
+        fs.unlinkSync(req.file.path);
+
         const newCourt = new Court({
             courtName,
-            picturePath,
+            picturePath: result.secure_url,
             ground,
             location,
             facilities,

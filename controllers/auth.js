@@ -2,6 +2,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from "../models/User.js";
 
+import fs from 'fs';
+import cloudinary from 'cloudinary';
+
 //REGISTER USER 
 export const register = async (req, res) => {
     try {
@@ -18,15 +21,31 @@ export const register = async (req, res) => {
             telegram
         } = req.body;
 
+        // Check if file is uploaded
+        if (!req.file) {
+            return res.status(400).json({ error: "No file uploaded." });
+        }
+
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
+
+        // Upload the image to Cloudinary
+        let result;
+        try {
+            result = await cloudinary.uploader.upload(req.file.path);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to upload image to Cloudinary." });
+        }
+
+        // Delete the temporary file
+        fs.unlinkSync(req.file.path);
 
         const newUser = new User({
             firstName,
             lastName,
             email,
             password: passwordHash,
-            picturePath,
+            picturePath: result.secure_url,
             friends,
             location,
             level,
