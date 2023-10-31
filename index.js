@@ -17,6 +17,7 @@ import { createPost } from './controllers/posts.js';
 import { createCourt } from './controllers/courts.js';
 import { verifyToken } from './middleware/auth.js';
 import cloudinary from 'cloudinary';
+import helmet from 'helmet';
 
 // CONFIGURATIONS MIDDLEWARE
 const __filename = fileURLToPath(import.meta.url);
@@ -32,6 +33,22 @@ app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets"))); //our directory of imges
+
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        connectSrc: ["'self'", "https://api.openweathermap.org"],
+        imgSrc: [
+          "'self'", 
+          "data:", 
+          "https://res.cloudinary.com", // Existing domain for Cloudinary
+          "https://tiles.stadiamaps.com" // Add this domain for Leaflet map tiles
+        ],
+        // ... add other directives as needed ...
+      },
+    },
+  }));
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
