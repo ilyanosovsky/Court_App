@@ -37,8 +37,8 @@ const MapWidget = ({ showMap, toggleMap, darkMode, courts, handleMarkerClick }) 
           <TileLayer
             url={
               darkMode
-                ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-                : "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+                ? "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=b703dca8-561a-4806-8599-8219a9ba0304"
+                : "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=b703dca8-561a-4806-8599-8219a9ba0304"
             }
           />
 
