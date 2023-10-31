@@ -17,7 +17,6 @@ import { createPost } from './controllers/posts.js';
 import { createCourt } from './controllers/courts.js';
 import { verifyToken } from './middleware/auth.js';
 import cloudinary from 'cloudinary';
-import helmet from 'helmet';
 
 // CONFIGURATIONS MIDDLEWARE
 const __filename = fileURLToPath(import.meta.url);
@@ -26,7 +25,6 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 app.use(morgan("common"));
 app.use(bodyParser.json({limit: "30mb", extended: true}));
