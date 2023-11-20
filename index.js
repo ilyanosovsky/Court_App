@@ -41,7 +41,8 @@ app.use(helmet({
           "'self'", 
           "data:", 
           "https://res.cloudinary.com", // Existing domain for Cloudinary
-          "https://tiles.stadiamaps.com" // Add this domain for Leaflet map tiles
+          "https://tiles.stadiamaps.com", // Add this domain for Leaflet map tiles
+          "https://cdn-icons-png.flaticon.com",
         ],
         // ... add other directives as needed ...
       },
